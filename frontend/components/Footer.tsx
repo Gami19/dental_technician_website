@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4 text-blue-400">Precision Dental Lab</h3>
+            <h3 className="text-xl font-bold mb-4 text-blue-400">デンタル ラボ AQUA</h3>
             <p className="text-gray-300 mb-4">
               CAD/CAMを活用した高精度テレスコープ義歯の専門ラボです。
               デジタル技工のコンサルティングサービスも提供しています。
@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Precision Dental Lab. All rights reserved.</p>
+          <p>&copy; 2024 デンタル ラボ AQUA. All rights reserved.</p>
         </div>
       </div>
     </footer>

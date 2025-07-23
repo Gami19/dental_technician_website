@@ -8,7 +8,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">
-              Precision Dental Lab<br />
+              デンタル ラボ AQUA<br />
               <span className="text-blue-200">ラボ紹介</span>
             </h1>
             <p className="text-xl opacity-90 leading-relaxed">
@@ -35,7 +35,7 @@ export default function AboutPage() {
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
                     当ラボのホームページをご覧いただき、誠にありがとうございます。
-                    代表の田中健一と申します。
+                    代表の池上和宏と申します。
                   </p>
                   <p>
                     私は歯科技工士として25年間、常に「患者様に最高の笑顔を届けたい」という想いで
@@ -55,8 +55,8 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div className="mt-6">
-                  <div className="text-2xl font-bold text-gray-900">田中 健一</div>
-                  <div className="text-blue-600 font-semibold">代表・歯科技工士</div>
+                  <div className="text-2xl font-bold text-gray-900">池上 和宏</div>
+                  <div className="text-blue-600 font-semibold">CEO・歯科技工士</div>
                 </div>
               </div>
             </div>
@@ -82,14 +82,14 @@ export default function AboutPage() {
                       <Award className="text-blue-600 mt-1" size={24} />
                       <div>
                         <div className="font-semibold text-gray-900">ラボ名</div>
-                        <div className="text-gray-600">Precision Dental Lab</div>
+                        <div className="text-gray-600">デンタル ラボ AQUA</div>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Award className="text-blue-600 mt-1" size={24} />
                       <div>
                         <div className="font-semibold text-gray-900">代表者</div>
-                        <div className="text-gray-600">田中 健一（歯科技工士）</div>
+                        <div className="text-gray-600">池上 和宏（歯科技工士）</div>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -97,9 +97,8 @@ export default function AboutPage() {
                       <div>
                         <div className="font-semibold text-gray-900">所在地</div>
                         <div className="text-gray-600">
-                          〒100-0001<br />
-                          東京都千代田区千代田1-1-1<br />
-                          精密ビル3F
+                          〒860-0048<br />
+                          熊本県熊本市西区池上町１１２８−１３<br />
                         </div>
                       </div>
                     </div>
@@ -108,8 +107,7 @@ export default function AboutPage() {
                       <div>
                         <div className="font-semibold text-gray-900">TEL / FAX</div>
                         <div className="text-gray-600">
-                          TEL: 03-XXXX-XXXX<br />
-                          FAX: 03-XXXX-XXXX
+                          TEL: 096-329-2426<br />
                         </div>
                       </div>
                     </div>
@@ -315,9 +313,8 @@ export default function AboutPage() {
                     <div>
                       <div className="font-semibold text-gray-900">住所</div>
                       <div className="text-gray-600">
-                        〒100-0001<br />
-                        東京都千代田区千代田1-1-1<br />
-                        精密ビル3F
+                        〒860-0048<br />
+                        熊本県熊本市西区池上町１１２８−１３<br />
                       </div>
                     </div>
                   </div>
@@ -325,9 +322,8 @@ export default function AboutPage() {
                   <div className="border-t pt-4">
                     <h4 className="font-semibold text-gray-900 mb-3">最寄り駅</h4>
                     <div className="space-y-2 text-gray-600">
-                      <div>• JR山手線「東京駅」徒歩5分</div>
-                      <div>• 地下鉄丸ノ内線「東京駅」徒歩3分</div>
-                      <div>• 地下鉄東西線「大手町駅」徒歩7分</div>
+                      <div>• JR九州「熊本駅」徒歩20分</div>
+                      <div>• 熊本駅からはタクシーをご利用ください</div>
                     </div>
                   </div>
                   

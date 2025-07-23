@@ -233,8 +233,8 @@ export default function ConsultingPage() {
                 </div>
                 
                 <div className="lg:col-span-2">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">田中 健一</h3>
-                  <p className="text-blue-600 font-semibold mb-4">代表・歯科技工士</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">池上 和宏</h3>
+                  <p className="text-blue-600 font-semibold mb-4">CEO・歯科技工士</p>
                   
                   <div className="space-y-4">
                     <div>

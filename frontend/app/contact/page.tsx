@@ -60,7 +60,7 @@ export default function ContactPage() {
               <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                 <Phone className="text-blue-600 mx-auto mb-4" size={32} />
                 <h3 className="text-lg font-bold text-gray-900 mb-2">お電話でのお問い合わせ</h3>
-                <div className="text-2xl font-bold text-blue-600 mb-1">03-XXXX-XXXX</div>
+                <div className="text-2xl font-bold text-blue-600 mb-1">096-329-2426</div>
                 <div className="text-sm text-gray-600">平日 9:00-18:00</div>
               </div>
 
