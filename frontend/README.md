@@ -1,36 +1,223 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Precision Dental Lab Website
 
-## Getting Started
+歯科技工所向けの専門的なWebサイト - CAD/CAMテレスコープ義歯とコンサルティングサービスに特化
 
-First, run the development server:
+## 🦷 プロジェクト概要
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+このプロジェクトは、CAD/CAMを活用した高精度テレスコープ義歯の製作と歯科技工コンサルティングサービスを提供する歯科技工所のWebサイトです。
+
+### 主要サービス
+- **CAD/CAMテレスコープ義歯製作**: 国内でも希少な技術による高精度義歯
+- **歯科技工コンサルティング**: 技術指導・デジタルワークフロー構築支援
+- **IOSデータ対応**: 口腔内スキャナーデータの完全対応
+- **クレジット決済対応**: 支払い方法の多様化
+
+## 🚀 技術スタック
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Icons**: Lucide React
+- **Fonts**: Inter, Noto Sans JP
+- **Deployment**: Static Export対応
+
+## 📁 プロジェクト構造
+
+```
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # ルートレイアウト
+│   ├── page.tsx           # トップページ
+│   ├── products/          # 製品紹介ページ
+│   ├── consulting/        # コンサルティングページ
+│   ├── about/            # ラボ紹介ページ
+│   ├── contact/          # お問い合わせページ
+│   └── globals.css       # グローバルスタイル
+├── components/            # 再利用可能コンポーネント
+│   ├── Navigation.tsx    # ナビゲーション
+│   ├── Footer.tsx        # フッター
+│   ├── Hero.tsx          # ヒーローセクション
+│   ├── FeatureCard.tsx   # 特徴カード
+│   └── ui/               # shadcn/ui コンポーネント
+└── lib/                  # ユーティリティ関数
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 デザインコンセプト
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### カラーパレット
+- **プライマリー**: Blue (#2563eb) - 信頼性と専門性
+- **セカンダリー**: White (#ffffff) - 清潔感と精密性
+- **アクセント**: Gray (#6b7280) - 落ち着きと安定感
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### デザイン原則
+- **ミニマリズム**: 情報の整理と視認性の向上
+- **専門性**: 技術力と信頼性の表現
+- **レスポンシブ**: 全デバイスでの最適表示
+- **アクセシビリティ**: 読みやすさと使いやすさの確保
 
-## Learn More
+## 📱 ページ構成
 
-To learn more about Next.js, take a look at the following resources:
+### 1. トップページ (`/`)
+- **ヒーローセクション**: スライドショー形式のメインビジュアル
+- **強みの紹介**: 3つの主要な特徴をカード形式で表示
+- **CAD/CAM技術説明**: 技術的優位性の詳細説明
+- **お知らせ**: 最新情報の表示
+- **CTA**: お問い合わせへの誘導
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. 製品紹介 (`/products`)
+- **テレスコープ義歯の説明**: 基本構造と仕組み
+- **インプラントとの比較**: 比較表による優位性の説明
+- **選ばれる理由**: 3つの主要ポイント
+- **製作の流れ**: 4ステップのプロセス説明
+- **料金について**: お見積もりへの誘導
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. コンサルティング (`/consulting`)
+- **課題の提示**: よくある悩みの例示
+- **サービス内容**: 4つの主要コンサルティング領域
+- **コンサルタント紹介**: 専門家のプロフィール
+- **料金体系**: 3つの契約形態
 
-## Deploy on Vercel
+### 4. ラボ紹介 (`/about`)
+- **代表者挨拶**: 理念と想いの表現
+- **ラボ概要**: 基本情報の整理
+- **設備紹介**: 6つの主要機器の詳細
+- **アクセス**: 地図と交通案内
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. お問い合わせ (`/contact`)
+- **連絡先情報**: 電話・メール・決済方法
+- **お問い合わせフォーム**: 7項目の詳細フォーム
+- **よくある質問**: 5つの主要FAQ
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ セットアップ手順
+
+### 前提条件
+- Node.js 18.0以上
+- npm または yarn
+
+### インストール
+```bash
+# リポジトリのクローン
+git clone [repository-url]
+cd precision-dental-lab
+
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
+npm run dev
+```
+
+### 利用可能なスクリプト
+```bash
+npm run dev      # 開発サーバー起動
+npm run build    # プロダクションビルド
+npm run start    # プロダクションサーバー起動
+npm run lint     # ESLintによるコード検査
+```
+
+## 🔧 カスタマイズ
+
+### 連絡先情報の更新
+以下のファイルで連絡先情報を更新してください：
+- `components/Footer.tsx`
+- `app/contact/page.tsx`
+- `app/about/page.tsx`
+
+### 画像の差し替え
+現在はPexelsの画像を使用しています。実際の画像に差し替える場合：
+1. `public/images/` フォルダに画像を配置
+2. 各コンポーネントの画像URLを更新
+
+### カラーテーマの変更
+`tailwind.config.ts` と `app/globals.css` でカラー設定を調整できます。
+
+## 💳 決済機能の実装
+
+現在のサイトは決済機能の準備が整っています：
+
+### 実装予定機能
+- **Stripe決済**: クレジットカード決済
+- **銀行振込**: 従来の支払い方法
+- **分割払い**: 高額サービス向け
+
+### 実装手順
+1. Stripe アカウントの作成
+2. 環境変数の設定
+3. 決済フォームの実装
+4. Webhook の設定
+
+## 📊 SEO対策
+
+### 実装済み対策
+- **メタデータ**: 各ページに適切なtitle/description
+- **構造化データ**: 組織情報のマークアップ
+- **レスポンシブ**: モバイルファーストデザイン
+- **パフォーマンス**: 画像最適化・コード分割
+
+### 追加推奨対策
+- Google Analytics の導入
+- Google Search Console の設定
+- サイトマップの生成
+- ローカルSEOの強化
+
+## 🚀 デプロイメント
+
+### Vercel (推奨)
+```bash
+# Vercel CLI のインストール
+npm i -g vercel
+
+# デプロイ
+vercel
+```
+
+### Netlify
+```bash
+# ビルド
+npm run build
+
+# dist フォルダをNetlifyにアップロード
+```
+
+### 静的ホスティング
+```bash
+# 静的ファイルの生成
+npm run build
+
+# out フォルダの内容をサーバーにアップロード
+```
+
+## 📈 パフォーマンス最適化
+
+### 実装済み最適化
+- **画像最適化**: Next.js Image コンポーネント
+- **コード分割**: 動的インポート
+- **CSS最適化**: Tailwind CSS の purge
+- **フォント最適化**: Google Fonts の最適読み込み
+
+### 追加最適化案
+- **CDN**: 画像・静的ファイルの配信最適化
+- **キャッシュ**: ブラウザキャッシュの活用
+- **圧縮**: Gzip/Brotli 圧縮の有効化
+
+## 🔒 セキュリティ
+
+### 実装済み対策
+- **フォーム検証**: クライアント・サーバーサイド検証
+- **CSRF対策**: トークンベース認証
+- **XSS対策**: 入力値のサニタイズ
+- **HTTPS**: SSL/TLS 暗号化
+
+## 📞 サポート・メンテナンス
+
+### 定期メンテナンス項目
+- **依存関係の更新**: 月次セキュリティアップデート
+- **コンテンツ更新**: お知らせ・実績の追加
+- **パフォーマンス監視**: Core Web Vitals の確認
+- **セキュリティ監査**: 脆弱性スキャン
+
+### トラブルシューティング
+よくある問題と解決方法については、[Issues](../../issues) を参照してください。
+
+
+**Precision Dental Lab** - CAD/CAMテクノロジーで歯科医療の未来を創造
