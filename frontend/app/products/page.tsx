@@ -137,20 +137,6 @@ export default function ProductsPage() {
                 CAM（切削機械）によるミクロン単位の加工技術を組み合わせ、
                 完璧な適合性を実現します。
               </p>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">3D設計による詳細解析</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">ミクロン単位の加工精度</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">品質管理システム</span>
-                </div>
-              </div>
             </div>
 
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
@@ -163,20 +149,6 @@ export default function ProductsPage() {
                 デジタルワークフローの利便性を最大限に活用できます。
                 従来の印象採得の手間を大幅に削減します。
               </p>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">主要IOSメーカー対応</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">オンライン送付可能</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">データ品質チェック</span>
-                </div>
-              </div>
             </div>
 
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
@@ -189,20 +161,6 @@ export default function ProductsPage() {
                 難症例にも対応してきた実績があります。
                 常に最新技術を取り入れ、品質向上に努めています。
               </p>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">累計製作数 500症例以上</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">難症例対応実績</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-green-500" size={16} />
-                  <span className="text-sm text-gray-600">継続的な技術向上</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

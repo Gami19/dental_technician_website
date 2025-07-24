@@ -8,7 +8,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">
-              Precision Dental Lab<br />
+              デンタル ラボ AQUA<br />
               <span className="text-blue-200">ラボ紹介</span>
             </h1>
             <p className="text-xl opacity-90 leading-relaxed">
@@ -35,7 +35,7 @@ export default function AboutPage() {
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
                     当ラボのホームページをご覧いただき、誠にありがとうございます。
-                    代表の田中健一と申します。
+                    代表の池上和宏と申します。
                   </p>
                   <p>
                     私は歯科技工士として25年間、常に「患者様に最高の笑顔を届けたい」という想いで
@@ -55,8 +55,8 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div className="mt-6">
-                  <div className="text-2xl font-bold text-gray-900">田中 健一</div>
-                  <div className="text-blue-600 font-semibold">代表・歯科技工士</div>
+                  <div className="text-2xl font-bold text-gray-900">池上 和宏</div>
+                  <div className="text-blue-600 font-semibold">CEO・歯科技工士</div>
                 </div>
               </div>
             </div>
@@ -82,14 +82,14 @@ export default function AboutPage() {
                       <Award className="text-blue-600 mt-1" size={24} />
                       <div>
                         <div className="font-semibold text-gray-900">ラボ名</div>
-                        <div className="text-gray-600">Precision Dental Lab</div>
+                        <div className="text-gray-600">デンタル ラボ AQUA</div>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Award className="text-blue-600 mt-1" size={24} />
                       <div>
                         <div className="font-semibold text-gray-900">代表者</div>
-                        <div className="text-gray-600">田中 健一（歯科技工士）</div>
+                        <div className="text-gray-600">池上 和宏（歯科技工士）</div>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -97,9 +97,8 @@ export default function AboutPage() {
                       <div>
                         <div className="font-semibold text-gray-900">所在地</div>
                         <div className="text-gray-600">
-                          〒100-0001<br />
-                          東京都千代田区千代田1-1-1<br />
-                          精密ビル3F
+                          〒860-0048<br />
+                          熊本県熊本市西区池上町１１２８−１３<br />
                         </div>
                       </div>
                     </div>
@@ -108,8 +107,7 @@ export default function AboutPage() {
                       <div>
                         <div className="font-semibold text-gray-900">TEL / FAX</div>
                         <div className="text-gray-600">
-                          TEL: 03-XXXX-XXXX<br />
-                          FAX: 03-XXXX-XXXX
+                          TEL: 096-329-2426<br />
                         </div>
                       </div>
                     </div>
@@ -139,27 +137,11 @@ export default function AboutPage() {
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">CAD/CAMテレスコープ義歯製作</span>
+                      <span className="text-gray-700">テレスコープ義歯およびCAD/CAM</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                       <span className="text-gray-700">IOSデータ対応デジタル技工</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">歯科技工コンサルティング</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">CAD/CAM導入支援</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">デジタルワークフロー構築</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">技術研修・講習会</span>
                     </div>
                   </div>
                 </div>
@@ -290,73 +272,6 @@ export default function AboutPage() {
                     全ての製作工程をデジタル記録。
                     トレーサビリティを確保し、継続的な品質改善を実現します。
                   </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* アクセスマップ */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">アクセス</h2>
-            <p className="text-xl text-gray-600">お気軽にお越しください</p>
-          </div>
-
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              <div className="bg-white rounded-xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">交通案内</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <MapPin className="text-blue-600 mt-1" size={24} />
-                    <div>
-                      <div className="font-semibold text-gray-900">住所</div>
-                      <div className="text-gray-600">
-                        〒100-0001<br />
-                        東京都千代田区千代田1-1-1<br />
-                        精密ビル3F
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="border-t pt-4">
-                    <h4 className="font-semibold text-gray-900 mb-3">最寄り駅</h4>
-                    <div className="space-y-2 text-gray-600">
-                      <div>• JR山手線「東京駅」徒歩5分</div>
-                      <div>• 地下鉄丸ノ内線「東京駅」徒歩3分</div>
-                      <div>• 地下鉄東西線「大手町駅」徒歩7分</div>
-                    </div>
-                  </div>
-                  
-                  <div className="border-t pt-4">
-                    <h4 className="font-semibold text-gray-900 mb-3">お車でお越しの場合</h4>
-                    <div className="text-gray-600">
-                      <div>近隣のコインパーキングをご利用ください。</div>
-                      <div>事前にご連絡いただければ、おすすめの駐車場をご案内いたします。</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">地図</h3>
-                <div className="relative bg-gray-200 rounded-lg overflow-hidden" style={{paddingBottom: '56.25%'}}>
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.827853654859!2d139.76263331525473!3d35.681236080197584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1640995200000!5m2!1sja!2sjp"
-                    width="100%"
-                    height="100%"
-                    style={{position: 'absolute', top: 0, left: 0}}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="border-0"
-                  ></iframe>
-                </div>
-                <div className="mt-4 text-sm text-gray-600">
-                  ※ 来所される際は、事前にお電話でご連絡をお願いいたします。
                 </div>
               </div>
             </div>

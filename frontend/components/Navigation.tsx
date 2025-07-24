@@ -14,7 +14,7 @@ export default function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="text-2xl font-bold text-blue-600">
-            Precision Dental Lab
+            デンタル ラボ AQUA
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -23,9 +23,6 @@ export default function Navigation() {
             </Link>
             <Link href="/products" className="text-gray-700 hover:text-blue-600 transition-colors">
               製品紹介
-            </Link>
-            <Link href="/consulting" className="text-gray-700 hover:text-blue-600 transition-colors">
-              コンサルティング
             </Link>
             <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
               ラボ紹介

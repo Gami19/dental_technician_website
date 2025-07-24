@@ -11,7 +11,7 @@ export default function Hero() {
     {
       title: "CAD/CAMが可能にする、適合精度。",
       subtitle: "テレスコープ義歯を、あなたの医院へ。",
-      description: "国内でも製作者がほとんどいない高精度テレスコープ義歯の専門ラボです。",
+      description: "国内でも製作者がほとんどいない高精度テレスコープ義歯の製作可能なラボです。",
       image: "https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
     },
     {
@@ -63,12 +63,7 @@ export default function Hero() {
             <span>製品について詳しく</span>
             <ChevronRight size={20} />
           </Link>
-          <Link 
-            href="/consulting" 
-            className="border-2 border-white hover:bg-white hover:text-gray-900 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all"
-          >
-            コンサルティング
-          </Link>
+          
         </div>
       </div>
 
