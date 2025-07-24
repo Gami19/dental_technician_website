@@ -24,9 +24,6 @@ export default function Navigation() {
             <Link href="/products" className="text-gray-700 hover:text-blue-600 transition-colors">
               製品紹介
             </Link>
-            <Link href="/consulting" className="text-gray-700 hover:text-blue-600 transition-colors">
-              コンサルティング
-            </Link>
             <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
               ラボ紹介
             </Link>

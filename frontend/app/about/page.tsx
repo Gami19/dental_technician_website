@@ -137,27 +137,11 @@ export default function AboutPage() {
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">CAD/CAMテレスコープ義歯製作</span>
+                      <span className="text-gray-700">テレスコープ義歯およびCAD/CAM</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                       <span className="text-gray-700">IOSデータ対応デジタル技工</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">歯科技工コンサルティング</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">CAD/CAM導入支援</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">デジタルワークフロー構築</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-gray-700">技術研修・講習会</span>
                     </div>
                   </div>
                 </div>

@@ -35,9 +35,7 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">サービス</h4>
             <ul className="space-y-2 text-gray-300">
               <li>テレスコープ義歯製作</li>
-              <li>CAD/CAMコンサルティング</li>
-              <li>デジタルワークフロー構築</li>
-              <li>技術指導・サポート</li>
+              <li>CAD/CAMによる補綴製作</li>
             </ul>
           </div>
         </div>
