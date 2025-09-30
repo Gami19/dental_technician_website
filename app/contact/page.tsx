@@ -14,11 +14,38 @@ export default function ContactPage() {
     privacyAgreed: false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // フォーム送信処理（実際の実装では適切なAPIエンドポイントに送信）
-    console.log('Form submitted:', formData);
-    alert('お問い合わせありがとうございます。担当者より2営業日以内にご連絡いたします。');
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        alert(result.message);
+        // フォームをリセット
+        setFormData({
+          inquiryType: '',
+          companyName: '',
+          contactName: '',
+          email: '',
+          phone: '',
+          message: '',
+          privacyAgreed: false
+        });
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      alert('送信中にエラーが発生しました。もう一度お試しください。');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
