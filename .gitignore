@@ -1,3 +1,4 @@
 node_modules
-package-lock.json
+public
+.next
 next-env.d.ts
