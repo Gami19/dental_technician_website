@@ -131,7 +131,7 @@ export default function Home() {
             まずはお気軽にご相談ください
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            製品の詳細、コンサルティングサービス、料金についてなど、
+            製品の詳細、料金についてなど、
             どのようなことでもお答えいたします。
           </p>
           
