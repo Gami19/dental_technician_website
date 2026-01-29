@@ -41,3 +41,7 @@ next-env.d.ts
 .env.local
 public
 supabase
+.next
+next-env.d.ts
+package-lock.json
+.DS_Store
