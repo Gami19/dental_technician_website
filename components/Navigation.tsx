@@ -58,13 +58,6 @@ export default function Navigation() {
                 製品紹介
               </Link>
               <Link 
-                href="/consulting" 
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600"
-                onClick={() => setIsOpen(false)}
-              >
-                コンサルティング
-              </Link>
-              <Link 
                 href="/about" 
                 className="block px-3 py-2 text-gray-700 hover:text-blue-600"
                 onClick={() => setIsOpen(false)}

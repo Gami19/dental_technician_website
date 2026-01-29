@@ -9,7 +9,6 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4 text-blue-400">デンタル ラボ AQUA</h3>
             <p className="text-gray-300 mb-4">
               CAD/CAMを活用した高精度テレスコープ義歯の専門ラボです。
-              デジタル技工のコンサルティングサービスも提供しています。
             </p>
           </div>
           
