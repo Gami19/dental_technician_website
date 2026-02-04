@@ -16,7 +16,7 @@ export interface ApiResponse<T> {
 const ADMIN_API_BASE_URL = process.env.NEXT_PUBLIC_ADMIN_API_URL;
 
 export const announcementApi = {
-    // 公開ようお知らせ一覧取得
+    // 公開用お知らせ一覧取得
     getPublicAnnouncements: async (): Promise<Announcement[]> => {
         const response = await fetch(`${ADMIN_API_BASE_URL}/api/announcements/public`, {
           cache: 'no-store',

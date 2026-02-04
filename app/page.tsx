@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero';
 import FeatureCard from '@/components/FeatureCard';
+import { Announcements } from '@/components/Annoucements';
 import { Microscope, Cpu, Wrench, Users, Award, Clock } from 'lucide-react';
 import Link from 'next/link';
 
@@ -87,42 +88,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* お知らせセクション */}
-      <section className="py-16 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">お知らせ</h2>
-          </div>
-          
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg shadow-md p-6 mb-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                    重要
-                  </span>
-                  <h3 className="text-lg font-semibold mt-2">年末年始休業のお知らせ</h3>
-                  <p className="text-gray-600 mt-1">12月29日〜1月3日まで休業いたします</p>
-                </div>
-                <span className="text-gray-500 text-sm">2024.12.15</span>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-md p-6 mb-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                    学会
-                  </span>
-                  <h3 className="text-lg font-semibold mt-2">日本歯科技工学会で発表いたします</h3>
-                  <p className="text-gray-600 mt-1">「CAD/CAMを活用したテレスコープ義歯の精度向上について」</p>
-                </div>
-                <span className="text-gray-500 text-sm">2024.11.28</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* お知らせセクション（管理サイトの公開 API から取得） */}
+      <Announcements />
 
       {/* CTA セクション */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
