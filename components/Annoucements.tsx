@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import { announcementApi, Announcement } from '@/lib/api';
 import { format } from 'date-fns';
+import { Badge } from '@/components/ui/badge';
+
+const TYPE_LABELS: Record<string, string> = {
+  general: '通常',
+  holiday: '休業日',
+  special: '特別営業',
+};
 
 export function Announcements() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -87,9 +94,18 @@ export function Announcements() {
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                    お知らせ
-                  </span>
+                  <Badge
+                    variant={
+                      announcement.type === 'holiday'
+                        ? 'destructive'
+                        : announcement.type === 'special'
+                          ? 'default'
+                          : 'secondary'
+                    }
+                    className="rounded-full"
+                  >
+                    {TYPE_LABELS[announcement.type ?? 'general'] ?? '通常'}
+                  </Badge>
                   <h3 className="text-lg font-semibold mt-2 text-gray-900">
                     {announcement.title}
                   </h3>

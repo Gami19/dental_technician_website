@@ -1,9 +1,12 @@
 export interface Announcement {
-    id: string
-    title: string
-    content: string
-    createdAt: string
-    updatedAt: string
+  id: string
+  title: string
+  content: string
+  date?: string | null
+  endDate?: string | null
+  type?: string | null
+  createdAt: string
+  updatedAt: string
 }
 
 export interface ApiResponse<T> {
