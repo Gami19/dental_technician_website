@@ -45,3 +45,5 @@ supabase
 next-env.d.ts
 package-lock.json
 .DS_Store
+
+/memory
