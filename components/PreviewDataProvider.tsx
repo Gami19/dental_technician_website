@@ -41,15 +41,7 @@ export function PreviewDataProvider({ children }: { children: React.ReactNode })
   const [previewImages, setPreviewImages] = useState<Record<string, PublicImage> | null>(null)
   const [previewLoading, setPreviewLoading] = useState(false)
 
-  useEffect(() => {
-    const { isPreview: isP, token } = getPreviewParams()
-    setIsPreview(!!isP)
-    if (!isP || !token) {
-      setPreviewContent(null)
-      setPreviewImages(null)
-      setPreviewLoading(false)
-      return
-    }
+  const fetchPreview = useCallback((token: string) => {
     setPreviewLoading(true)
     previewDataApi
       .getPreviewData(token)
@@ -63,6 +55,28 @@ export function PreviewDataProvider({ children }: { children: React.ReactNode })
       })
       .finally(() => setPreviewLoading(false))
   }, [])
+
+  useEffect(() => {
+    const { isPreview: isP, token } = getPreviewParams()
+    setIsPreview(!!isP)
+    if (!isP || !token) {
+      setPreviewContent(null)
+      setPreviewImages(null)
+      setPreviewLoading(false)
+      return
+    }
+    fetchPreview(token)
+  }, [fetchPreview])
+
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      if (event.data?.type !== 'PREVIEW_UPDATED') return
+      const { token } = getPreviewParams()
+      if (token) fetchPreview(token)
+    }
+    window.addEventListener('message', handler)
+    return () => window.removeEventListener('message', handler)
+  }, [fetchPreview])
 
   return (
     <PreviewDataContext.Provider
