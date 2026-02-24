@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Send, Phone, Mail, Clock, CreditCard } from 'lucide-react';
+import { contactApi } from '@/lib/api';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -11,40 +12,31 @@ export default function ContactPage() {
     email: '',
     phone: '',
     message: '',
-    privacyAgreed: false
+    privacyAgreed: false,
+    _hp: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setIsSubmitting(true);
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      const result = await contactApi.submit(formData);
+      alert(result.message);
+      setFormData({
+        inquiryType: '',
+        companyName: '',
+        contactName: '',
+        email: '',
+        phone: '',
+        message: '',
+        privacyAgreed: false,
+        _hp: '',
       });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        alert(result.message);
-        // フォームをリセット
-        setFormData({
-          inquiryType: '',
-          companyName: '',
-          contactName: '',
-          email: '',
-          phone: '',
-          message: '',
-          privacyAgreed: false
-        });
-      } else {
-        alert(result.message);
-      }
     } catch (error) {
-      alert('送信中にエラーが発生しました。もう一度お試しください。');
+      alert(error instanceof Error ? error.message : '送信中にエラーが発生しました。もう一度お試しください。');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -138,6 +130,20 @@ export default function ContactPage() {
 
             <form onSubmit={handleSubmit} className="bg-gray-50 rounded-xl p-8 shadow-lg">
               <div className="space-y-6">
+                {/* Honeypot: ボット対策用の隠しフィールド */}
+                <div className="absolute -left-[9999px]" aria-hidden="true">
+                  <label htmlFor="_hp">記入しないでください</label>
+                  <input
+                    type="text"
+                    id="_hp"
+                    name="_hp"
+                    value={formData._hp}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 {/* お問い合わせ種別 */}
                 <div>
                   <label htmlFor="inquiryType" className="block text-sm font-semibold text-gray-900 mb-2">
@@ -267,7 +273,7 @@ export default function ContactPage() {
                 <div className="text-center pt-6">
                   <button
                     type="submit"
-                    disabled={!formData.privacyAgreed}
+                    disabled={!formData.privacyAgreed || isSubmitting}
                     className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors flex items-center space-x-2 mx-auto"
                   >
                     <Send size={20} />

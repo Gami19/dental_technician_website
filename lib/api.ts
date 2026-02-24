@@ -15,6 +15,17 @@ export interface ApiResponse<T> {
     error?: string
 }
 
+export interface ContactFormData {
+  inquiryType: string
+  companyName: string
+  contactName: string
+  email: string
+  phone?: string
+  message: string
+  privacyAgreed: boolean
+  _hp?: string
+}
+
 // admin側のAPIベースURL
 const ADMIN_API_BASE_URL = process.env.NEXT_PUBLIC_ADMIN_API_URL;
 
@@ -32,6 +43,22 @@ export const announcementApi = {
         
         const result: ApiResponse<Announcement[]> = await response.json()
         return result.data || []
-      }, 
+      },
 }
 
+export const contactApi = {
+  submit: async (data: ContactFormData) => {
+    const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL
+    if (!baseUrl) throw new Error('API URL が設定されていません')
+    const response = await fetch(`${baseUrl}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    const result = await response.json()
+    if (!result.success) {
+      throw new Error(result.error || '送信に失敗しました')
+    }
+    return result
+  },
+}
