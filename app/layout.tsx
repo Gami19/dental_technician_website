@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter, Noto_Sans_JP } from 'next/font/google';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { PreviewDataProvider } from '@/components/PreviewDataProvider';
 import { ImagesProvider } from '@/components/ImagesProvider';
 import { ContentProvider } from '@/components/ContentProvider';
 
@@ -23,15 +24,17 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.className} ${notoSansJP.className}`}>
-        <ImagesProvider>
-          <ContentProvider>
-            <Navigation />
+        <PreviewDataProvider>
+          <ImagesProvider>
+            <ContentProvider>
+              <Navigation />
             <main className="min-h-screen">
               {children}
             </main>
             <Footer />
-          </ContentProvider>
-        </ImagesProvider>
+            </ContentProvider>
+          </ImagesProvider>
+        </PreviewDataProvider>
       </body>
     </html>
   );

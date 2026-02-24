@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react'
 import { contentApi } from '@/lib/api'
+import { usePreviewData } from './PreviewDataProvider'
 
 const ContentContext = createContext<{
   data: Record<string, string>
@@ -22,6 +23,7 @@ export function useContent() {
 }
 
 export function ContentProvider({ children }: { children: React.ReactNode }) {
+  const { isPreview, previewContent, previewLoading } = usePreviewData()
   const [data, setData] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(true)
 
@@ -38,8 +40,20 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    fetchContent()
-  }, [fetchContent])
+    if (isPreview) {
+      if (previewContent !== null) {
+        setData(previewContent)
+        setLoading(false)
+      } else if (!previewLoading) {
+        setData({})
+        setLoading(false)
+      } else {
+        setLoading(true)
+      }
+    } else {
+      fetchContent()
+    }
+  }, [isPreview, previewContent, previewLoading, fetchContent])
 
   return (
     <ContentContext.Provider value={{ data, loading, refetch: fetchContent }}>

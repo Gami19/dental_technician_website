@@ -77,6 +77,28 @@ export const contentApi = {
   },
 }
 
+export type PreviewData = {
+  content: Record<string, string>
+  images: Record<string, PublicImage>
+}
+
+export const previewDataApi = {
+  getPreviewData: async (token: string): Promise<PreviewData> => {
+    const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL
+    if (!baseUrl) throw new Error('API URL が設定されていません')
+    const response = await fetch(`${baseUrl}/api/preview?token=${encodeURIComponent(token)}`, {
+      cache: 'no-store',
+    })
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}))
+      throw new Error(err.error || 'プレビューデータの取得に失敗しました')
+    }
+    const result = await response.json()
+    if (!result.success || !result.data) throw new Error('プレビューデータの取得に失敗しました')
+    return result.data
+  },
+}
+
 export const contactApi = {
   submit: async (data: ContactFormData) => {
     const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL

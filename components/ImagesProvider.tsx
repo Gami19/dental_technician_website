@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react'
 import { imageApi, type PublicImage } from '@/lib/api'
+import { usePreviewData } from './PreviewDataProvider'
 
 type ImagesData = Record<string, PublicImage>
 
@@ -24,6 +25,7 @@ export function useImages() {
 }
 
 export function ImagesProvider({ children }: { children: React.ReactNode }) {
+  const { isPreview, previewImages, previewLoading } = usePreviewData()
   const [data, setData] = useState<ImagesData>({})
   const [loading, setLoading] = useState(true)
 
@@ -40,8 +42,20 @@ export function ImagesProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    fetchImages()
-  }, [fetchImages])
+    if (isPreview) {
+      if (previewImages !== null) {
+        setData(previewImages)
+        setLoading(false)
+      } else if (!previewLoading) {
+        setData({})
+        setLoading(false)
+      } else {
+        setLoading(true)
+      }
+    } else {
+      fetchImages()
+    }
+  }, [isPreview, previewImages, previewLoading, fetchImages])
 
   return (
     <ImagesContext.Provider value={{ data, loading, refetch: fetchImages }}>
