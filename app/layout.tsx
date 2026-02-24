@@ -4,6 +4,7 @@ import { Inter, Noto_Sans_JP } from 'next/font/google';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { ImagesProvider } from '@/components/ImagesProvider';
+import { ContentProvider } from '@/components/ContentProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 const notoSansJP = Noto_Sans_JP({ subsets: ['latin'] });
@@ -23,11 +24,13 @@ export default function RootLayout({
     <html lang="ja">
       <body className={`${inter.className} ${notoSansJP.className}`}>
         <ImagesProvider>
-          <Navigation />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
+          <ContentProvider>
+            <Navigation />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </ContentProvider>
         </ImagesProvider>
       </body>
     </html>

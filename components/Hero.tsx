@@ -4,42 +4,40 @@ import { useState, useEffect, useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useImages } from './ImagesProvider';
+import { useContent } from './ContentProvider';
 
-const SLIDE_DEFAULTS = [
-  {
-    title: "CAD/CAMが可能にする、適合精度。",
-    subtitle: "テレスコープ義歯を、あなたの医院へ。",
-    description: "国内でも製作者がほとんどいない高精度テレスコープ義歯の製作可能なラボです。",
-    imageKey: 'hero_slide_1' as const,
-    fallbackImage: "https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
-  },
-  {
-    title: "インプラントに代わる選択肢",
-    subtitle: "患者様への負担を最小限に",
-    description: "外科手術を伴わない、安全で確実な補綴治療をご提案します。",
-    imageKey: 'hero_slide_2' as const,
-    fallbackImage: "https://images.pexels.com/photos/7659411/pexels-photo-7659411.jpeg"
-  },
-  {
-    title: "IOSにも対応したデジタルソリューション",
-    subtitle: "最新技術で最高の結果を",
-    description: "口腔内スキャナーデータに完全対応したデジタルワークフローを提供します。",
-    imageKey: 'hero_slide_3' as const,
-    fallbackImage: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg"
-  }
+const SLIDE_IMAGE_KEYS = ['hero_slide_1', 'hero_slide_2', 'hero_slide_3'] as const;
+const FALLBACK_IMAGES = [
+  "https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg",
+  "https://images.pexels.com/photos/7659411/pexels-photo-7659411.jpeg",
+  "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg",
+];
+const SLIDE_TEXT_KEYS = [
+  { title: 'home.hero.slide1_title', subtitle: 'home.hero.slide1_subtitle', description: 'home.hero.slide1_description' },
+  { title: 'home.hero.slide2_title', subtitle: 'home.hero.slide2_subtitle', description: 'home.hero.slide2_description' },
+  { title: 'home.hero.slide3_title', subtitle: 'home.hero.slide3_subtitle', description: 'home.hero.slide3_description' },
+];
+const SLIDE_DEFAULT_TEXTS = [
+  { title: 'CAD/CAMが可能にする、適合精度。', subtitle: 'テレスコープ義歯を、あなたの医院へ。', description: '国内でも製作者がほとんどいない高精度テレスコープ義歯の製作可能なラボです。' },
+  { title: 'インプラントに代わる選択肢', subtitle: '患者様への負担を最小限に', description: '外科手術を伴わない、安全で確実な補綴治療をご提案します。' },
+  { title: 'IOSにも対応したデジタルソリューション', subtitle: '最新技術で最高の結果を', description: '口腔内スキャナーデータに完全対応したデジタルワークフローを提供します。' },
 ];
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { data } = useImages();
+  const { data: imagesData } = useImages();
+  const { data: contentData } = useContent();
 
   const slides = useMemo(() =>
-    SLIDE_DEFAULTS.map((s) => ({
-      ...s,
-      image: data[s.imageKey]?.url ?? s.fallbackImage,
+    SLIDE_IMAGE_KEYS.map((imageKey, i) => ({
+      title: contentData[SLIDE_TEXT_KEYS[i].title] || SLIDE_DEFAULT_TEXTS[i].title,
+      subtitle: contentData[SLIDE_TEXT_KEYS[i].subtitle] || SLIDE_DEFAULT_TEXTS[i].subtitle,
+      description: contentData[SLIDE_TEXT_KEYS[i].description] || SLIDE_DEFAULT_TEXTS[i].description,
+      image: imagesData[imageKey]?.url ?? FALLBACK_IMAGES[i],
     })),
-    [data]
+    [imagesData, contentData]
   );
+  const ctaLabel = contentData['home.hero.cta_label'] || '製品について詳しく';
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -73,10 +71,9 @@ export default function Hero() {
             href="/products" 
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors flex items-center space-x-2"
           >
-            <span>製品について詳しく</span>
+            <span>{ctaLabel}</span>
             <ChevronRight size={20} />
           </Link>
-          
         </div>
       </div>
 

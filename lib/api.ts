@@ -64,6 +64,19 @@ export const imageApi = {
   },
 }
 
+export const contentApi = {
+  getPublicContent: async (): Promise<Record<string, string>> => {
+    const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL
+    if (!baseUrl) return {}
+    const response = await fetch(`${baseUrl}/api/content/public`, {
+      cache: 'no-store',
+    })
+    if (!response.ok) return {}
+    const result = await response.json()
+    return result.data || {}
+  },
+}
+
 export const contactApi = {
   submit: async (data: ContactFormData) => {
     const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL
