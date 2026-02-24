@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Clock, Award, Microscope, Monitor, Wrench } from 'lucide-react';
+import { ImageByKey } from '@/components/ImageByKey';
 
 export default function AboutPage() {
   return (
@@ -24,8 +25,8 @@ export default function AboutPage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <img 
-                  src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+                <ImageByKey
+                  imageKey="about_greeting"
                   alt="代表者"
                   className="rounded-xl shadow-lg w-full max-w-md mx-auto"
                 />
@@ -166,8 +167,8 @@ export default function AboutPage() {
                   <Monitor className="text-blue-600" size={32} />
                   <h3 className="text-xl font-bold text-gray-900">CADソフトウェア</h3>
                 </div>
-                <img 
-                  src="https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg"
+                <ImageByKey
+                  imageKey="about_equipment_cad"
                   alt="CADソフトウェア"
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
@@ -185,8 +186,8 @@ export default function AboutPage() {
                   <Wrench className="text-blue-600" size={32} />
                   <h3 className="text-xl font-bold text-gray-900">CAM（切削機）</h3>
                 </div>
-                <img 
-                  src="https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
+                <ImageByKey
+                  imageKey="about_equipment_cam"
                   alt="CAM切削機"
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
@@ -204,8 +205,8 @@ export default function AboutPage() {
                   <Microscope className="text-blue-600" size={32} />
                   <h3 className="text-xl font-bold text-gray-900">3Dスキャナー</h3>
                 </div>
-                <img 
-                  src="https://images.pexels.com/photos/7659411/pexels-photo-7659411.jpeg"
+                <ImageByKey
+                  imageKey="about_equipment_scanner"
                   alt="3Dスキャナー"
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
@@ -223,8 +224,8 @@ export default function AboutPage() {
                   <Award className="text-blue-600" size={32} />
                   <h3 className="text-xl font-bold text-gray-900">測定機器</h3>
                 </div>
-                <img 
-                  src="https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg"
+                <ImageByKey
+                  imageKey="about_equipment_meter"
                   alt="測定機器"
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
@@ -242,8 +243,8 @@ export default function AboutPage() {
                   <Wrench className="text-blue-600" size={32} />
                   <h3 className="text-xl font-bold text-gray-900">焼成炉</h3>
                 </div>
-                <img 
-                  src="https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
+                <ImageByKey
+                  imageKey="about_equipment_furnace"
                   alt="焼成炉"
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
@@ -261,8 +262,8 @@ export default function AboutPage() {
                   <Monitor className="text-blue-600" size={32} />
                   <h3 className="text-xl font-bold text-gray-900">品質管理システム</h3>
                 </div>
-                <img 
-                  src="https://images.pexels.com/photos/7659411/pexels-photo-7659411.jpeg"
+                <ImageByKey
+                  imageKey="about_equipment_quality"
                   alt="品質管理システム"
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />

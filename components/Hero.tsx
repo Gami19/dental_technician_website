@@ -1,32 +1,45 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { ChevronRight, Microscope, Cpu, Wrench } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react';
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { useImages } from './ImagesProvider';
+
+const SLIDE_DEFAULTS = [
+  {
+    title: "CAD/CAMが可能にする、適合精度。",
+    subtitle: "テレスコープ義歯を、あなたの医院へ。",
+    description: "国内でも製作者がほとんどいない高精度テレスコープ義歯の製作可能なラボです。",
+    imageKey: 'hero_slide_1' as const,
+    fallbackImage: "https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
+  },
+  {
+    title: "インプラントに代わる選択肢",
+    subtitle: "患者様への負担を最小限に",
+    description: "外科手術を伴わない、安全で確実な補綴治療をご提案します。",
+    imageKey: 'hero_slide_2' as const,
+    fallbackImage: "https://images.pexels.com/photos/7659411/pexels-photo-7659411.jpeg"
+  },
+  {
+    title: "IOSにも対応したデジタルソリューション",
+    subtitle: "最新技術で最高の結果を",
+    description: "口腔内スキャナーデータに完全対応したデジタルワークフローを提供します。",
+    imageKey: 'hero_slide_3' as const,
+    fallbackImage: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg"
+  }
+];
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { data } = useImages();
 
-  const slides = [
-    {
-      title: "CAD/CAMが可能にする、適合精度。",
-      subtitle: "テレスコープ義歯を、あなたの医院へ。",
-      description: "国内でも製作者がほとんどいない高精度テレスコープ義歯の製作可能なラボです。",
-      image: "https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
-    },
-    {
-      title: "インプラントに代わる選択肢",
-      subtitle: "患者様への負担を最小限に",
-      description: "外科手術を伴わない、安全で確実な補綴治療をご提案します。",
-      image: "https://images.pexels.com/photos/7659411/pexels-photo-7659411.jpeg"
-    },
-    {
-      title: "IOSにも対応したデジタルソリューション",
-      subtitle: "最新技術で最高の結果を",
-      description: "口腔内スキャナーデータに完全対応したデジタルワークフローを提供します。",
-      image: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg"
-    }
-  ];
+  const slides = useMemo(() =>
+    SLIDE_DEFAULTS.map((s) => ({
+      ...s,
+      image: data[s.imageKey]?.url ?? s.fallbackImage,
+    })),
+    [data]
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {

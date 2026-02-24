@@ -1,5 +1,6 @@
 import { CheckCircle, Monitor, Cog, Clock, Award, Microscope } from 'lucide-react';
 import Link from 'next/link';
+import { ImageByKey } from '@/components/ImageByKey';
 
 export default function ProductsPage() {
   return (
@@ -33,8 +34,8 @@ export default function ProductsPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
               <div>
-                <img 
-                  src="https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
+                <ImageByKey
+                  imageKey="products_telescope"
                   alt="テレスコープ義歯の構造"
                   className="rounded-xl shadow-lg w-full"
                 />

@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero';
 import FeatureCard from '@/components/FeatureCard';
 import { Announcements } from '@/components/Annoucements';
+import { ImageByKey } from '@/components/ImageByKey';
 import { Microscope, Cpu, Wrench, Users, Award, Clock } from 'lucide-react';
 import Link from 'next/link';
 
@@ -78,10 +79,10 @@ export default function Home() {
             </div>
             
             <div className="relative">
-              <img 
-                src="https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg"
+              <ImageByKey
+                imageKey="home_cadcam"
                 alt="CAD/CAM Technology"
-                className="rounded-xl shadow-2xl"
+                className="rounded-xl shadow-2xl w-full"
               />
             </div>
           </div>

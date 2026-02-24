@@ -46,6 +46,24 @@ export const announcementApi = {
       },
 }
 
+export interface PublicImage {
+  url: string
+  alt: string | null
+}
+
+export const imageApi = {
+  getPublicImages: async (): Promise<Record<string, PublicImage>> => {
+    const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL
+    if (!baseUrl) return {}
+    const response = await fetch(`${baseUrl}/api/images/public`, {
+      cache: 'no-store',
+    })
+    if (!response.ok) return {}
+    const result = await response.json()
+    return result.data || {}
+  },
+}
+
 export const contactApi = {
   submit: async (data: ContactFormData) => {
     const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL
