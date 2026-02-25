@@ -77,21 +77,38 @@ export const contentApi = {
   },
 }
 
+export type PreviewAnnouncement = {
+  id: string
+  title: string
+  content: string
+  date?: string | null
+  endDate?: string | null
+  type?: string | null
+  createdAt: string
+  updatedAt: string
+}
+
 export type PreviewData = {
   content: Record<string, string>
   images: Record<string, PublicImage>
+  announcements: PreviewAnnouncement[]
 }
 
 export const previewDataApi = {
   getPreviewData: async (token: string): Promise<PreviewData> => {
     const baseUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL
     if (!baseUrl) throw new Error('API URL が設定されていません')
-    const response = await fetch(`${baseUrl}/api/preview?token=${encodeURIComponent(token)}`, {
+    const response = await fetch(`${baseUrl}/api/preview`, {
       cache: 'no-store',
+      headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) {
-      const err = await response.json().catch(() => ({}))
-      throw new Error(err.error || 'プレビューデータの取得に失敗しました')
+      const errBody = await response.json().catch(() => ({}))
+      const err = new Error(errBody.error || 'プレビューデータの取得に失敗しました') as Error & {
+        status?: number
+      }
+      err.status = response.status
+      throw err
     }
     const result = await response.json()
     if (!result.success || !result.data) throw new Error('プレビューデータの取得に失敗しました')
