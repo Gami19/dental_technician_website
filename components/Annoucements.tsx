@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { announcementApi, Announcement } from '@/lib/api';
+import { announcementApi, type PreviewAnnouncement } from '@/lib/api';
+import { usePreviewData } from '@/components/PreviewDataProvider';
 import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 
@@ -12,11 +13,24 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 export function Announcements() {
-  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { isPreview, previewAnnouncements, previewLoading } = usePreviewData();
+  const [announcements, setAnnouncements] = useState<PreviewAnnouncement[]>([]);
+  const [loading, setLoading] = useState(!isPreview);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (isPreview) {
+      if (previewAnnouncements !== null) {
+        setAnnouncements(previewAnnouncements);
+        setLoading(false);
+      } else if (!previewLoading) {
+        setAnnouncements([]);
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+      return;
+    }
     const fetchAnnouncements = async () => {
       try {
         setLoading(true);
@@ -30,9 +44,8 @@ export function Announcements() {
         setLoading(false);
       }
     };
-
     fetchAnnouncements();
-  }, []);
+  }, [isPreview, previewAnnouncements, previewLoading]);
 
   if (loading) {
     return (
