@@ -33,6 +33,7 @@ export function ImageByKey({
     return (
       <div
         className={`animate-pulse bg-gray-200 rounded ${className}`}
+        data-preview-image-key={imageKey}
         aria-hidden
       />
     )
@@ -42,6 +43,7 @@ export function ImageByKey({
     return (
       <div
         className={`bg-gray-100 rounded flex items-center justify-center text-gray-400 text-sm ${className}`}
+        data-preview-image-key={imageKey}
         aria-hidden
       >
         画像なし
@@ -54,11 +56,19 @@ export function ImageByKey({
       <div
         className={`bg-cover bg-center ${className}`}
         style={{ backgroundImage: `url(${url})` }}
+        data-preview-image-key={imageKey}
         role="img"
         aria-label={alt || undefined}
       />
     )
   }
 
-  return <img src={url} alt={alt} className={className} />
+  return (
+    <img
+      src={url}
+      alt={alt}
+      className={className}
+      data-preview-image-key={imageKey}
+    />
+  )
 }

@@ -47,22 +47,35 @@ export default function Hero() {
   }, [slides.length]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section
+      className="relative h-screen flex items-center justify-center overflow-hidden"
+      data-preview-section="home.hero"
+    >
       <div 
         className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
         style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
+        data-preview-image-keys="hero_slide_1 hero_slide_2 hero_slide_3"
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       </div>
       
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+        <h1
+          className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
+          data-preview-keys="home.hero.slide1_title home.hero.slide2_title home.hero.slide3_title"
+        >
           {slides[currentSlide].title}
         </h1>
-        <p className="text-xl md:text-2xl mb-6 text-blue-200">
+        <p
+          className="text-xl md:text-2xl mb-6 text-blue-200"
+          data-preview-keys="home.hero.slide1_subtitle home.hero.slide2_subtitle home.hero.slide3_subtitle"
+        >
           {slides[currentSlide].subtitle}
         </p>
-        <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
+        <p
+          className="text-lg mb-8 max-w-2xl mx-auto opacity-90"
+          data-preview-keys="home.hero.slide1_description home.hero.slide2_description home.hero.slide3_description"
+        >
           {slides[currentSlide].description}
         </p>
         
@@ -71,7 +84,7 @@ export default function Hero() {
             href="/products" 
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors flex items-center space-x-2"
           >
-            <span>{ctaLabel}</span>
+            <span data-preview-key="home.hero.cta_label">{ctaLabel}</span>
             <ChevronRight size={20} />
           </Link>
         </div>
