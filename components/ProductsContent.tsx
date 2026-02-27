@@ -13,53 +13,79 @@ export function ProductsContent() {
   const { data } = useContent();
   return (
     <div className="min-h-screen">
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-24">
+      <section
+        className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-24"
+        data-preview-section="products.hero"
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">
-              {c(data, 'products.hero.title_line1', 'CAD/CAMによる高精度')}<br />
-              <span className="text-blue-200">{c(data, 'products.hero.title_line2', 'テレスコープ義歯')}</span>
+              <span data-preview-key="products.hero.title_line1">
+                {c(data, 'products.hero.title_line1', 'CAD/CAMによる高精度')}
+              </span>
+              <br />
+              <span className="text-blue-200" data-preview-key="products.hero.title_line2">
+                {c(data, 'products.hero.title_line2', 'テレスコープ義歯')}
+              </span>
             </h1>
-            <p className="text-xl opacity-90 leading-relaxed">
+            <p className="text-xl opacity-90 leading-relaxed" data-preview-key="products.hero.subtitle">
               {c(data, 'products.hero.subtitle', '国内でも製作者がほとんどいない希少な技術力で、インプラントに代わる新しい選択肢をご提供します。')}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-preview-section="products.telescope">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">{c(data, 'products.telescope.section_title', 'テレスコープ義歯とは？')}</h2>
-              <p className="text-xl text-gray-600">{c(data, 'products.telescope.section_subtitle', '二重冠構造により、確実な固定力と取り外し可能な利便性を両立した義歯システムです')}</p>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.telescope.section_title">
+                {c(data, 'products.telescope.section_title', 'テレスコープ義歯とは？')}
+              </h2>
+              <p className="text-xl text-gray-600" data-preview-key="products.telescope.section_subtitle">
+                {c(data, 'products.telescope.section_subtitle', '二重冠構造により、確実な固定力と取り外し可能な利便性を両立した義歯システムです')}
+              </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
               <div>
                 <ImageByKey imageKey="products_telescope" alt="テレスコープ義歯の構造" className="rounded-xl shadow-lg w-full" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">{c(data, 'products.telescope.structure_title', '基本構造と仕組み')}</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6" data-preview-key="products.telescope.structure_title">
+                  {c(data, 'products.telescope.structure_title', '基本構造と仕組み')}
+                </h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <div className="bg-blue-100 rounded-full p-2"><Cog className="text-blue-600" size={20} /></div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{c(data, 'products.telescope.inner_cap_title', '内冠（インナーキャップ）')}</h4>
-                      <p className="text-gray-600">{c(data, 'products.telescope.inner_cap_desc', '残存歯に装着する内側の冠')}</p>
+                      <h4 className="font-semibold text-gray-900" data-preview-key="products.telescope.inner_cap_title">
+                        {c(data, 'products.telescope.inner_cap_title', '内冠（インナーキャップ）')}
+                      </h4>
+                      <p className="text-gray-600" data-preview-key="products.telescope.inner_cap_desc">
+                        {c(data, 'products.telescope.inner_cap_desc', '残存歯に装着する内側の冠')}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="bg-blue-100 rounded-full p-2"><Cog className="text-blue-600" size={20} /></div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{c(data, 'products.telescope.outer_cap_title', '外冠（アウターキャップ）')}</h4>
-                      <p className="text-gray-600">{c(data, 'products.telescope.outer_cap_desc', '義歯と一体化された外側の冠')}</p>
+                      <h4 className="font-semibold text-gray-900" data-preview-key="products.telescope.outer_cap_title">
+                        {c(data, 'products.telescope.outer_cap_title', '外冠（アウターキャップ）')}
+                      </h4>
+                      <p className="text-gray-600" data-preview-key="products.telescope.outer_cap_desc">
+                        {c(data, 'products.telescope.outer_cap_desc', '義歯と一体化された外側の冠')}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="bg-blue-100 rounded-full p-2"><Microscope className="text-blue-600" size={20} /></div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{c(data, 'products.telescope.precision_title', '精密嵌合')}</h4>
-                      <p className="text-gray-600">{c(data, 'products.telescope.precision_desc', '二つの冠の精密な嵌合により確実な固定を実現')}</p>
+                      <h4 className="font-semibold text-gray-900" data-preview-key="products.telescope.precision_title">
+                        {c(data, 'products.telescope.precision_title', '精密嵌合')}
+                      </h4>
+                      <p className="text-gray-600" data-preview-key="products.telescope.precision_desc">
+                        {c(data, 'products.telescope.precision_desc', '二つの冠の精密な嵌合により確実な固定を実現')}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -105,37 +131,57 @@ export function ProductsContent() {
         </div>
       </section>
 
-      <section className="py-20 bg-blue-50">
+      <section className="py-20 bg-blue-50" data-preview-section="products.reasons">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">{c(data, 'products.reasons.title', '当ラボが選ばれる理由')}</h2>
-            <p className="text-xl text-gray-600">{c(data, 'products.reasons.subtitle', '圧倒的な技術力と豊富な経験で、最高品質をお約束します')}</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.reasons.title">
+              {c(data, 'products.reasons.title', '当ラボが選ばれる理由')}
+            </h2>
+            <p className="text-xl text-gray-600" data-preview-key="products.reasons.subtitle">
+              {c(data, 'products.reasons.subtitle', '圧倒的な技術力と豊富な経験で、最高品質をお約束します')}
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-blue-600 mb-4"><Award size={48} /></div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900">{c(data, 'products.reasons.reason1_title', '圧倒的な精度と適合性')}</h3>
-              <p className="text-gray-600 mb-6">{c(data, 'products.reasons.reason1_text', 'CAD（歯科設計ソフト）による精密な設計プロセスと、CAM（切削機械）によるミクロン単位の加工技術を組み合わせ、完璧な適合性を実現します。')}</p>
+              <h3 className="text-xl font-bold mb-4 text-gray-900" data-preview-key="products.reasons.reason1_title">
+                {c(data, 'products.reasons.reason1_title', '圧倒的な精度と適合性')}
+              </h3>
+              <p className="text-gray-600 mb-6" data-preview-key="products.reasons.reason1_text">
+                {c(data, 'products.reasons.reason1_text', 'CAD（歯科設計ソフト）による精密な設計プロセスと、CAM（切削機械）によるミクロン単位の加工技術を組み合わせ、完璧な適合性を実現します。')}
+              </p>
             </div>
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-blue-600 mb-4"><Monitor size={48} /></div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900">{c(data, 'products.reasons.reason2_title', 'IOSデータに完全対応')}</h3>
-              <p className="text-gray-600 mb-6">{c(data, 'products.reasons.reason2_text', '口腔内スキャナーからのデータ受付が可能で、デジタルワークフローの利便性を最大限に活用できます。従来の印象採得の手間を大幅に削減します。')}</p>
+              <h3 className="text-xl font-bold mb-4 text-gray-900" data-preview-key="products.reasons.reason2_title">
+                {c(data, 'products.reasons.reason2_title', 'IOSデータに完全対応')}
+              </h3>
+              <p className="text-gray-600 mb-6" data-preview-key="products.reasons.reason2_text">
+                {c(data, 'products.reasons.reason2_text', '口腔内スキャナーからのデータ受付が可能で、デジタルワークフローの利便性を最大限に活用できます。従来の印象採得の手間を大幅に削減します。')}
+              </p>
             </div>
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-blue-600 mb-4"><Clock size={48} /></div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900">{c(data, 'products.reasons.reason3_title', '豊富な経験と実績')}</h3>
-              <p className="text-gray-600 mb-6">{c(data, 'products.reasons.reason3_text', 'これまで数多くのテレスコープ義歯を手掛け、難症例にも対応してきた実績があります。常に最新技術を取り入れ、品質向上に努めています。')}</p>
+              <h3 className="text-xl font-bold mb-4 text-gray-900" data-preview-key="products.reasons.reason3_title">
+                {c(data, 'products.reasons.reason3_title', '豊富な経験と実績')}
+              </h3>
+              <p className="text-gray-600 mb-6" data-preview-key="products.reasons.reason3_text">
+                {c(data, 'products.reasons.reason3_text', 'これまで数多くのテレスコープ義歯を手掛け、難症例にも対応してきた実績があります。常に最新技術を取り入れ、品質向上に努めています。')}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-preview-section="products.flow">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">{c(data, 'products.flow.title', '製作の流れ')}</h2>
-            <p className="text-xl text-gray-600">{c(data, 'products.flow.subtitle', 'ご依頼から納品までのステップをご紹介します')}</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.flow.title">
+              {c(data, 'products.flow.title', '製作の流れ')}
+            </h2>
+            <p className="text-xl text-gray-600" data-preview-key="products.flow.subtitle">
+              {c(data, 'products.flow.subtitle', 'ご依頼から納品までのステップをご紹介します')}
+            </p>
           </div>
           <div className="max-w-4xl mx-auto">
             <div className="space-y-8">
@@ -153,9 +199,13 @@ export function ProductsContent() {
                     <div className="bg-gray-50 rounded-lg p-6">
                       <div className="flex items-center space-x-3 mb-3">
                         <div className="text-blue-600">{item.icon}</div>
-                        <h3 className="text-xl font-bold text-gray-900">{c(data, `products.flow.${item.keyTitle}`, '')}</h3>
+                        <h3 className="text-xl font-bold text-gray-900" data-preview-key={`products.flow.${item.keyTitle}`}>
+                          {c(data, `products.flow.${item.keyTitle}`, '')}
+                        </h3>
                       </div>
-                      <p className="text-gray-600">{c(data, `products.flow.${item.keyDesc}`, '')}</p>
+                      <p className="text-gray-600" data-preview-key={`products.flow.${item.keyDesc}`}>
+                        {c(data, `products.flow.${item.keyDesc}`, '')}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -165,16 +215,26 @@ export function ProductsContent() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50" data-preview-section="products.price">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">{c(data, 'products.price.title', '料金について')}</h2>
-            <p className="text-xl text-gray-600 mb-8">{c(data, 'products.price.subtitle', '料金は症例の複雑さや使用材料により異なります。まずはお気軽にお問い合わせください。')}</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.price.title">
+              {c(data, 'products.price.title', '料金について')}
+            </h2>
+            <p className="text-xl text-gray-600 mb-8" data-preview-key="products.price.subtitle">
+              {c(data, 'products.price.subtitle', '料金は症例の複雑さや使用材料により異なります。まずはお気軽にお問い合わせください。')}
+            </p>
             <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-blue-600 mb-4">{c(data, 'products.price.box_title', 'お見積もり無料')}</h3>
-              <p className="text-gray-600 mb-6">{c(data, 'products.price.box_text', '詳細な症例情報をお聞かせいただければ、正確なお見積もりをご提供いたします。料金についてのご質問もお気軽にどうぞ。')}</p>
+              <h3 className="text-2xl font-bold text-blue-600 mb-4" data-preview-key="products.price.box_title">
+                {c(data, 'products.price.box_title', 'お見積もり無料')}
+              </h3>
+              <p className="text-gray-600 mb-6" data-preview-key="products.price.box_text">
+                {c(data, 'products.price.box_text', '詳細な症例情報をお聞かせいただければ、正確なお見積もりをご提供いたします。料金についてのご質問もお気軽にどうぞ。')}
+              </p>
               <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors inline-block">
-                {c(data, 'products.price.btn_text', 'お問い合わせはこちら')}
+                <span data-preview-key="products.price.btn_text">
+                  {c(data, 'products.price.btn_text', 'お問い合わせはこちら')}
+                </span>
               </Link>
             </div>
           </div>

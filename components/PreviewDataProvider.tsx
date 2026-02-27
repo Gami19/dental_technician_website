@@ -17,6 +17,19 @@ type PreviewDataContextValue = {
   previewLoading: boolean
 }
 
+type HighlightTone = 'title' | 'subtitle' | 'description' | 'image' | 'section'
+type HighlightKind = 'content' | 'image' | 'section'
+type PreviewHighlightPayload = {
+  key: string
+  tone: HighlightTone
+  kind: HighlightKind
+  scroll: boolean
+}
+type PreviewHighlightMessage = {
+  type: 'PREVIEW_HIGHLIGHT'
+  payload: PreviewHighlightPayload
+}
+
 const PreviewDataContext = createContext<PreviewDataContextValue>({
   isPreview: false,
   previewContent: null,
@@ -106,6 +119,9 @@ export function PreviewDataProvider({ children }: { children: React.ReactNode })
       }
     })()
 
+    let highlighted: HTMLElement | null = null
+    let highlightTimer: number | null = null
+
     const handler = (event: MessageEvent) => {
       if (adminOrigin && event.origin !== adminOrigin) return
 
@@ -114,10 +130,52 @@ export function PreviewDataProvider({ children }: { children: React.ReactNode })
         fetchPreview(event.data.token)
       } else if (event.data?.type === 'PREVIEW_UPDATED' && previewToken) {
         fetchPreview(previewToken)
+      } else if (event.data?.type === 'PREVIEW_HIGHLIGHT') {
+        const message = event.data as PreviewHighlightMessage
+        const payload = message?.payload
+        if (!payload || typeof payload.key !== 'string') return
+        const selector =
+          payload.kind === 'image'
+            ? `[data-preview-image-key="${payload.key}"], [data-preview-image-keys~="${payload.key}"]`
+            : payload.kind === 'section'
+              ? `[data-preview-section="${payload.key}"]`
+              : `[data-preview-key="${payload.key}"], [data-preview-keys~="${payload.key}"]`
+        const target = document.querySelector<HTMLElement>(selector)
+        if (!target) return
+
+        const baseClass = 'preview-highlight'
+        const toneClass = `preview-highlight--${payload.tone}`
+        if (highlighted) {
+          highlighted.classList.remove(
+            baseClass,
+            'preview-highlight--title',
+            'preview-highlight--subtitle',
+            'preview-highlight--description',
+            'preview-highlight--image',
+            'preview-highlight--section'
+          )
+        }
+        if (highlightTimer !== null) {
+          window.clearTimeout(highlightTimer)
+          highlightTimer = null
+        }
+        target.classList.add(baseClass, toneClass)
+        highlighted = target
+        if (payload.scroll) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+        }
+        highlightTimer = window.setTimeout(() => {
+          target.classList.remove(baseClass, toneClass)
+          if (highlighted === target) highlighted = null
+          highlightTimer = null
+        }, 5000)
       }
     }
     window.addEventListener('message', handler)
-    return () => window.removeEventListener('message', handler)
+    return () => {
+      window.removeEventListener('message', handler)
+      if (highlightTimer !== null) window.clearTimeout(highlightTimer)
+    }
   }, [fetchPreview, previewToken])
 
   return (

@@ -80,3 +80,41 @@
     @apply bg-background text-foreground;
   }
 }
+
+.preview-highlight {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color 150ms ease, background-color 150ms ease;
+}
+
+.preview-highlight--title {
+  outline-color: rgba(59, 130, 246, 0.6);
+  background-color: rgba(59, 130, 246, 0.08);
+}
+
+.preview-highlight--subtitle {
+  outline-color: rgba(245, 158, 11, 0.6);
+  background-color: rgba(245, 158, 11, 0.08);
+}
+
+.preview-highlight--description {
+  outline-color: rgba(107, 114, 128, 0.6);
+  background-color: rgba(107, 114, 128, 0.08);
+}
+
+.preview-highlight--image {
+  outline-color: rgba(59, 130, 246, 0.6);
+  background-color: rgba(59, 130, 246, 0.08);
+}
+
+.preview-highlight--section {
+  outline-color: rgba(139, 92, 246, 0.6);
+  background-color: rgba(139, 92, 246, 0.08);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.18) 0px,
+    rgba(139, 92, 246, 0.18) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
