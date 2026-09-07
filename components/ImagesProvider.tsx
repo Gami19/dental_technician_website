@@ -26,36 +26,35 @@ export function useImages() {
 
 export function ImagesProvider({ children }: { children: React.ReactNode }) {
   const { isPreview, previewImages, previewLoading } = usePreviewData()
-  const [data, setData] = useState<ImagesData>({})
-  const [loading, setLoading] = useState(true)
+  const [publicData, setPublicData] = useState<ImagesData>({})
+  const [publicLoading, setPublicLoading] = useState(true)
 
   const fetchImages = useCallback(async () => {
-    setLoading(true)
+    setPublicLoading(true)
     try {
       const result = await imageApi.getPublicImages()
-      setData(result)
+      setPublicData(result)
     } catch {
-      setData({})
+      setPublicData({})
     } finally {
-      setLoading(false)
+      setPublicLoading(false)
     }
   }, [])
 
   useEffect(() => {
     if (isPreview) {
-      if (previewImages !== null) {
-        setData(previewImages)
-        setLoading(false)
-      } else if (!previewLoading) {
-        setData({})
-        setLoading(false)
-      } else {
-        setLoading(true)
-      }
-    } else {
-      fetchImages()
+      return
     }
+    const timer = window.setTimeout(() => {
+      void fetchImages()
+    }, 0)
+    return () => window.clearTimeout(timer)
   }, [isPreview, previewImages, previewLoading, fetchImages])
+
+  const data = isPreview ? (previewImages ?? {}) : publicData
+  const loading = isPreview
+    ? previewLoading && previewImages === null
+    : publicLoading
 
   return (
     <ImagesContext.Provider value={{ data, loading, refetch: fetchImages }}>

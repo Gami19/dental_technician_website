@@ -49,7 +49,7 @@ function getIsPreviewFromUrl(): boolean {
 }
 
 export function PreviewDataProvider({ children }: { children: React.ReactNode }) {
-  const [isPreview, setIsPreview] = useState(false)
+  const [isPreview] = useState(getIsPreviewFromUrl)
   const [previewToken, setPreviewToken] = useState<string | null>(null)
   const [previewContent, setPreviewContent] = useState<Record<string, string> | null>(null)
   const [previewImages, setPreviewImages] = useState<Record<string, PublicImage> | null>(null)
@@ -86,14 +86,7 @@ export function PreviewDataProvider({ children }: { children: React.ReactNode })
   }, [])
 
   useEffect(() => {
-    const isP = getIsPreviewFromUrl()
-    setIsPreview(isP)
-    if (!isP) {
-      setPreviewToken(null)
-      setPreviewContent(null)
-      setPreviewImages(null)
-      setPreviewAnnouncements(null)
-      setPreviewLoading(false)
+    if (!isPreview) {
       return
     }
     if (window.parent !== window) {
@@ -107,7 +100,7 @@ export function PreviewDataProvider({ children }: { children: React.ReactNode })
       })()
       window.parent.postMessage({ type: 'PREVIEW_READY' }, adminOrigin)
     }
-  }, [])
+  }, [isPreview])
 
   useEffect(() => {
     const adminOrigin = (() => {

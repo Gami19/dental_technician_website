@@ -11,9 +11,16 @@ const inter = Inter({ subsets: ['latin'] });
 const notoSansJP = Noto_Sans_JP({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'デンタル ラボ AQUA - CAD/CAM テレスコープ義歯専門ラボ',
-  description: 'CAD/CAMを活用した高精度テレスコープ義歯の専門ラボ。IOSデータ対応、デジタル技工コンサルティングサービスも提供。',
-  keywords: 'テレスコープ義歯, CAD/CAM, 歯科技工, デジタル技工, コンサルティング',
+  metadataBase: new URL('https://dentallab-aqua.com'),
+  title: {
+    default: 'デンタル ラボ アクア - CAD/CAM テレスコープ義歯専門ラボ',
+    template: '%s | デンタル ラボ アクア',
+  },
+  description: 'CAD/CAMを活用した高精度テレスコープ義歯の専門ラボ',
+  keywords: 'テレスコープ義歯, CAD/CAM, 歯科技工, デジタル技工',
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({

@@ -20,7 +20,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="text-2xl font-bold text-blue-600">
             <span data-preview-key="common.nav.site_name">
-              {c(data, 'common.nav.site_name', 'デンタル ラボ AQUA')}
+              {c(data, 'common.nav.site_name', 'デンタル ラボ アクア')}
             </span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
