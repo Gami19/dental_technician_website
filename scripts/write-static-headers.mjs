@@ -1,8 +1,14 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import nextEnv from "@next/env";
 
-const defaultAdminUrl = "http://localhost:3000";
-const configuredAdminUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || defaultAdminUrl;
+const { loadEnvConfig } = nextEnv;
+loadEnvConfig(process.cwd());
+
+const configuredAdminUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL;
+if (!configuredAdminUrl) {
+  throw new Error("NEXT_PUBLIC_ADMIN_API_URL is required for write-static-headers.mjs");
+}
 const adminOrigin = new URL(configuredAdminUrl).origin;
 
 const headersContent = `/*
