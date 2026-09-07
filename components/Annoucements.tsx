@@ -14,38 +14,34 @@ const TYPE_LABELS: Record<string, string> = {
 
 export function Announcements() {
   const { isPreview, previewAnnouncements, previewLoading } = usePreviewData();
-  const [announcements, setAnnouncements] = useState<PreviewAnnouncement[]>([]);
-  const [loading, setLoading] = useState(!isPreview);
+  const [publicAnnouncements, setPublicAnnouncements] = useState<PreviewAnnouncement[]>([]);
+  const [publicLoading, setPublicLoading] = useState(!isPreview);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isPreview) {
-      if (previewAnnouncements !== null) {
-        setAnnouncements(previewAnnouncements);
-        setLoading(false);
-      } else if (!previewLoading) {
-        setAnnouncements([]);
-        setLoading(false);
-      } else {
-        setLoading(true);
-      }
       return;
     }
     const fetchAnnouncements = async () => {
       try {
-        setLoading(true);
+        setPublicLoading(true);
         const data = await announcementApi.getPublicAnnouncements();
-        setAnnouncements(data);
+        setPublicAnnouncements(data);
         setError(null);
       } catch (err) {
         console.error('Error fetching announcements:', err);
         setError('お知らせの取得に失敗しました');
       } finally {
-        setLoading(false);
+        setPublicLoading(false);
       }
     };
     fetchAnnouncements();
   }, [isPreview, previewAnnouncements, previewLoading]);
+
+  const announcements = isPreview ? (previewAnnouncements ?? []) : publicAnnouncements;
+  const loading = isPreview
+    ? previewLoading && previewAnnouncements === null
+    : publicLoading;
 
   if (loading) {
     return (

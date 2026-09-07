@@ -1,6 +1,6 @@
 'use client';
 
-import { MapPin, Phone, Mail, Clock, Award, Microscope, Monitor, Wrench } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Award, Monitor } from 'lucide-react';
 import { ImageByKey } from '@/components/ImageByKey';
 import { useContent } from './ContentProvider';
 
@@ -20,7 +20,7 @@ export function AboutContent() {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">
               <span data-preview-key="about.hero.title">
-                {c(data, 'about.hero.title', 'デンタル ラボ AQUA')}
+                {c(data, 'about.hero.title', 'デンタル ラボ アクア')}
               </span>
               <br />
               <span className="text-blue-200" data-preview-key="about.hero.subtitle">
@@ -96,7 +96,7 @@ export function AboutContent() {
                       <div>
                         <div className="font-semibold text-gray-900">ラボ名</div>
                         <div className="text-gray-600" data-preview-key="about.lab_info.lab_name">
-                          {c(data, 'about.lab_info.lab_name', 'デンタル ラボ AQUA')}
+                          {c(data, 'about.lab_info.lab_name', 'デンタル ラボ アクア')}
                         </div>
                       </div>
                     </div>
