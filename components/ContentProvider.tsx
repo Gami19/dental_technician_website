@@ -24,36 +24,35 @@ export function useContent() {
 
 export function ContentProvider({ children }: { children: React.ReactNode }) {
   const { isPreview, previewContent, previewLoading } = usePreviewData()
-  const [data, setData] = useState<Record<string, string>>({})
-  const [loading, setLoading] = useState(true)
+  const [publicData, setPublicData] = useState<Record<string, string>>({})
+  const [publicLoading, setPublicLoading] = useState(true)
 
   const fetchContent = useCallback(async () => {
-    setLoading(true)
+    setPublicLoading(true)
     try {
       const result = await contentApi.getPublicContent()
-      setData(result)
+      setPublicData(result)
     } catch {
-      setData({})
+      setPublicData({})
     } finally {
-      setLoading(false)
+      setPublicLoading(false)
     }
   }, [])
 
   useEffect(() => {
     if (isPreview) {
-      if (previewContent !== null) {
-        setData(previewContent)
-        setLoading(false)
-      } else if (!previewLoading) {
-        setData({})
-        setLoading(false)
-      } else {
-        setLoading(true)
-      }
-    } else {
-      fetchContent()
+      return
     }
+    const timer = window.setTimeout(() => {
+      void fetchContent()
+    }, 0)
+    return () => window.clearTimeout(timer)
   }, [isPreview, previewContent, previewLoading, fetchContent])
+
+  const data = isPreview ? (previewContent ?? {}) : publicData
+  const loading = isPreview
+    ? previewLoading && previewContent === null
+    : publicLoading
 
   return (
     <ContentContext.Provider value={{ data, loading, refetch: fetchContent }}>

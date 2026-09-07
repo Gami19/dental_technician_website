@@ -1,220 +1,185 @@
-# Precision Dental Lab Website
+# dental_technician_website
 
-歯科技工所向けの専門的なWebサイト - CAD/CAMテレスコープ義歯に特化
+デンタル ラボ AQUA の公開サイトです。  
+Next.js App Router で実装し、静的出力した成果物を Cloudflare Pages へデプロイする前提で運用します。
 
-## 🦷 プロジェクト概要
+## 概要
 
-このプロジェクトは、CAD/CAMを活用した高精度テレスコープ義歯の製作を提供する歯科技工所のWebサイトです。
+- 公開用のコーポレートサイト
+- `/` `/about` `/products` `/contact` を提供
+- 管理サイト `admin_dental_technician_website` の公開 API を参照して、お知らせ・画像・本文データを表示
+- Cloudflare Pages へ `out/` をデプロイ
 
-### 主要サービス
-- **CAD/CAMテレスコープ義歯製作**: 国内でも希少な技術による高精度義歯
-- **IOSデータ対応**: 口腔内スキャナーデータの完全対応
-- **クレジット決済対応**: 支払い方法の多様化
+## 技術スタック
 
-## 🚀 技術スタック
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Cloudflare Pages
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
-- **Icons**: Lucide React
-- **Fonts**: Inter, Noto Sans JP
-- **Deployment**: Static Export対応
+## 関連リポジトリ / サービス
 
-## 📁 プロジェクト構造
+- 公開サイト: `dental_technician_website`
+- 管理サイト: `admin_dental_technician_website`
+- 公開サイトは管理サイトの API を利用します
 
+主な参照先:
+
+- お知らせ: `/api/announcements/public`
+- 画像: `/api/images/public`
+- 本文: `/api/content/public`
+- 問い合わせ送信: `/api/contact`
+
+## ディレクトリ構成
+
+```text
+app/                 Next.js App Router
+components/          画面用コンポーネント
+lib/                 API クライアントやユーティリティ
+scripts/             ビルド補助スクリプト
+out/                 `next build` 後の静的出力先
 ```
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # ルートレイアウト
-│   ├── page.tsx           # トップページ
-│   ├── products/          # 製品紹介ページ
-│   ├── about/            # ラボ紹介ページ
-│   ├── contact/          # お問い合わせページ
-│   └── globals.css       # グローバルスタイル
-├── components/            # 再利用可能コンポーネント
-│   ├── Navigation.tsx    # ナビゲーション
-│   ├── Footer.tsx        # フッター
-│   ├── Hero.tsx          # ヒーローセクション
-│   ├── FeatureCard.tsx   # 特徴カード
-│   └── ui/               # shadcn/ui コンポーネント
-└── lib/                  # ユーティリティ関数
-```
 
-## 🎨 デザインコンセプト
+## セットアップ
 
-### カラーパレット
-- **プライマリー**: Blue (#2563eb) - 信頼性と専門性
-- **セカンダリー**: White (#ffffff) - 清潔感と精密性
-- **アクセント**: Gray (#6b7280) - 落ち着きと安定感
+前提:
 
-### デザイン原則
-- **ミニマリズム**: 情報の整理と視認性の向上
-- **専門性**: 技術力と信頼性の表現
-- **レスポンシブ**: 全デバイスでの最適表示
-- **アクセシビリティ**: 読みやすさと使いやすさの確保
+- Node.js 22 以上を推奨
+- npm
 
-## 📱 ページ構成
+インストール:
 
-### 1. トップページ (`/`)
-- **ヒーローセクション**: スライドショー形式のメインビジュアル
-- **強みの紹介**: 3つの主要な特徴をカード形式で表示
-- **CAD/CAM技術説明**: 技術的優位性の詳細説明
-- **お知らせ**: 最新情報の表示
-- **CTA**: お問い合わせへの誘導
-
-### 2. 製品紹介 (`/products`)
-- **テレスコープ義歯の説明**: 基本構造と仕組み
-- **インプラントとの比較**: 比較表による優位性の説明
-- **選ばれる理由**: 3つの主要ポイント
-- **製作の流れ**: 4ステップのプロセス説明
-- **料金について**: お見積もりへの誘導
-
-### 4. ラボ紹介 (`/about`)
-- **代表者挨拶**: 理念と想いの表現
-- **ラボ概要**: 基本情報の整理
-- **設備紹介**: 6つの主要機器の詳細
-
-### 5. お問い合わせ (`/contact`)
-- **連絡先情報**: 電話・メール・決済方法
-- **お問い合わせフォーム**: 7項目の詳細フォーム
-- **よくある質問**: 5つの主要FAQ
-
-## 🛠️ セットアップ手順
-
-### 前提条件
-- Node.js 18.0以上
-- npm または yarn
-
-### インストール
 ```bash
-# リポジトリのクローン
-git clone [repository-url]
-cd precision-dental-lab
-
-# 依存関係のインストール
 npm install
+```
 
-# 開発サーバーの起動
+開発サーバー起動:
+
+```bash
 npm run dev
 ```
 
-### 利用可能なスクリプト
-```bash
-npm run dev      # 開発サーバー起動
-npm run build    # プロダクションビルド
-npm run start    # プロダクションサーバー起動
-npm run lint     # ESLintによるコード検査
+デフォルトでは `http://localhost:4000` で起動します。
+
+## 環境変数
+
+公開サイト側では、管理サイト API の URL を `NEXT_PUBLIC_ADMIN_API_URL` に設定します。
+
+`.env` または `.env.local`:
+
+```dotenv
+NEXT_PUBLIC_ADMIN_API_URL="https://admin-dental-technician-website.k-ikegami-15.workers.dev"
 ```
 
-## 🔧 カスタマイズ
+ローカル開発で管理サイトもローカル起動する場合の例:
 
-### 連絡先情報の更新
-以下のファイルで連絡先情報を更新してください：
-- `components/Footer.tsx`
-- `app/contact/page.tsx`
-- `app/about/page.tsx`
-
-### 画像の差し替え
-現在はPexelsの画像を使用しています。実際の画像に差し替える場合：
-1. `public/images/` フォルダに画像を配置
-2. 各コンポーネントの画像URLを更新
-
-### カラーテーマの変更
-`tailwind.config.ts` と `app/globals.css` でカラー設定を調整できます。
-
-## 💳 決済機能の実装
-
-現在のサイトは決済機能の準備が整っています：
-
-### 実装予定機能
-- **Stripe決済**: クレジットカード決済
-- **銀行振込**: 従来の支払い方法
-- **分割払い**: 高額サービス向け
-
-### 実装手順
-1. Stripe アカウントの作成
-2. 環境変数の設定
-3. 決済フォームの実装
-4. Webhook の設定
-
-## 📊 SEO対策
-
-### 実装済み対策
-- **メタデータ**: 各ページに適切なtitle/description
-- **構造化データ**: 組織情報のマークアップ
-- **レスポンシブ**: モバイルファーストデザイン
-- **パフォーマンス**: 画像最適化・コード分割
-
-### 追加推奨対策
-- Google Analytics の導入
-- Google Search Console の設定
-- サイトマップの生成
-- ローカルSEOの強化
-
-## 🚀 デプロイメント
-
-### Vercel (推奨)
-```bash
-# Vercel CLI のインストール
-npm i -g vercel
-
-# デプロイ
-vercel
+```dotenv
+NEXT_PUBLIC_ADMIN_API_URL="http://localhost:3000"
 ```
 
-### Netlify
+補足:
+
+- `NEXT_PUBLIC_` 付きの値はクライアントバンドルに埋め込まれます
+- 変更後は `npm run dev` の再起動が必要です
+- 管理サイト側では `ALLOWED_ORIGINS` に公開サイトの origin を含める必要があります
+
+## 利用可能なスクリプト
+
 ```bash
-# ビルド
+npm run dev
 npm run build
-
-# dist フォルダをNetlifyにアップロード
+npm run start
+npm run lint
 ```
 
-### 静的ホスティング
-```bash
-# 静的ファイルの生成
-npm run build
+役割:
 
-# out フォルダの内容をサーバーにアップロード
+- `npm run dev`: ローカル開発サーバーを起動
+- `npm run build`: 静的サイトをビルドし、`out/_headers` も生成
+- `npm run start`: Next.js の本番サーバーを起動
+- `npm run lint`: ESLint を実行
+
+## Cloudflare Pages デプロイ
+
+このプロジェクトは `next.config.ts` で `output: 'export'` を有効化しています。
+
+```3:5:next.config.ts
+const nextConfig: NextConfig = {
+  output: 'export',
+  images: { unoptimized: true },
+};
 ```
 
-## 📈 パフォーマンス最適化
+そのため、ビルド後の `out/` を Pages に公開します。
 
-### 実装済み最適化
-- **画像最適化**: Next.js Image コンポーネント
-- **コード分割**: 動的インポート
-- **CSS最適化**: Tailwind CSS の purge
-- **フォント最適化**: Google Fonts の最適読み込み
+Cloudflare Pages の設定例:
 
-### 追加最適化案
-- **CDN**: 画像・静的ファイルの配信最適化
-- **キャッシュ**: ブラウザキャッシュの活用
-- **圧縮**: Gzip/Brotli 圧縮の有効化
+- Build command: `npm run build`
+- Build output directory: `out`
 
-## 🔒 セキュリティ
+補足:
 
-### 実装済み対策
-- **フォーム検証**: クライアント・サーバーサイド検証
-- **CSRF対策**: トークンベース認証
-- **XSS対策**: 入力値のサニタイズ
-- **HTTPS**: SSL/TLS 暗号化
+- 現在の運用前提は Cloudflare Pages です
+- Workers 用の `wrangler.jsonc` は Pages デプロイでは不要です
+- `_headers` は `scripts/write-static-headers.mjs` で生成しています
 
-## 📞 サポート・メンテナンス
+## `_headers` 生成
 
-### 定期メンテナンス項目
-- **依存関係の更新**: 月次セキュリティアップデート
-- **コンテンツ更新**: お知らせ・実績の追加
-- **パフォーマンス監視**: Core Web Vitals の確認
-- **セキュリティ監査**: 脆弱性スキャン
+ビルド時に `scripts/write-static-headers.mjs` が `out/_headers` を生成します。
 
-### トラブルシューティング
-よくある問題と解決方法については、[Issues](../../issues) を参照してください。
+```13:20:scripts/write-static-headers.mjs
+const headersContent = `/*
+  X-Content-Type-Options: nosniff
+  Content-Security-Policy: frame-ancestors 'self' ${adminOrigin}
+`;
 
+const outDir = join(process.cwd(), "out");
+const headersPath = join(outDir, "_headers");
+```
 
-**Precision Dental Lab** - CAD/CAMテクノロジーで歯科医療の未来を創造
+目的:
 
-## 推奨実装順序
-1. お問い合わせAPI - 最優先（フォーム機能有効化）
-2. メール送信機能 - 高優先（業務フロー改善）
-3. 管理画面 - 中優先（運用効率化）
-4. お知らせ・FAQ管理 - 低優先（コンテンツ管理改善）
+- `X-Content-Type-Options: nosniff`
+- preview iframe 用の `Content-Security-Policy: frame-ancestors`
+
+管理サイトの origin は `NEXT_PUBLIC_ADMIN_API_URL` から算出されます。
+
+## SEO
+
+実装済みの主な項目:
+
+- `metadataBase`
+- site-wide canonical
+- `/about` `/products` `/contact` の個別 canonical
+- `robots.txt`
+- `sitemap.xml`
+
+`output: 'export'` 構成のため、`app/robots.ts` と `app/sitemap.ts` では `force-static` を指定しています。
+
+## 開発時の注意
+
+- 管理サイト API が CORS ホワイトリスト方式です
+- ローカル公開サイトからデプロイ済み管理 API を叩く場合、管理サイト側の `ALLOWED_ORIGINS` に `http://localhost:4000` が必要です
+- `NEXT_PUBLIC_ADMIN_API_URL` が未設定または不正だと、公開データ取得や問い合わせ送信が失敗します
+
+## トラブルシューティング
+
+### `Failed to fetch` が出る
+
+主な確認項目:
+
+- `NEXT_PUBLIC_ADMIN_API_URL` が正しいか
+- 開発サーバーを再起動したか
+- 管理サイト側 `ALLOWED_ORIGINS` に公開サイト origin が含まれているか
+- 管理サイト API がデプロイ済みで正常に応答しているか
+
+### Cloudflare Pages で `sitemap.xml` / `robots.txt` の build error が出る
+
+`app/sitemap.ts` と `app/robots.ts` に `export const dynamic = 'force-static'` が必要です。
+
+## メモ
+
+- 公開ドメインは `https://dentallab-aqua.com`
+- `.pages.dev` 側は重複コンテンツ対策のため最終的に本番ドメインへ寄せる想定です

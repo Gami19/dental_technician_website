@@ -16,7 +16,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4 text-blue-400">
               <span data-preview-key="common.footer.site_name">
-                {c(data, 'common.footer.site_name', 'デンタル ラボ AQUA')}
+                {c(data, 'common.footer.site_name', 'デンタル ラボ アクア')}
               </span>
             </h3>
             <p className="text-gray-300 mb-4">
@@ -75,7 +75,7 @@ export default function Footer() {
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
           <p>
             <span data-preview-key="common.footer.copyright">
-              {c(data, 'common.footer.copyright', '© 2024 デンタル ラボ AQUA. All rights reserved.')}
+              {c(data, 'common.footer.copyright', '© 2024 デンタル ラボ アクア. All rights reserved.')}
             </span>
           </p>
         </div>

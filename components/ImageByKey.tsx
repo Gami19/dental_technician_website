@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useImages } from './ImagesProvider'
 import type { ImageKey } from '@/lib/image-keys'
 
@@ -64,9 +65,12 @@ export function ImageByKey({
   }
 
   return (
-    <img
+    <Image
       src={url}
       alt={alt}
+      width={1600}
+      height={900}
+      unoptimized
       className={className}
       data-preview-image-key={imageKey}
     />
