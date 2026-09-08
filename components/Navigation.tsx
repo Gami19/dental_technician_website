@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { useContent } from './ContentProvider';
 
@@ -17,9 +18,17 @@ export default function Navigation() {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50" data-preview-section="common.nav">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            <span data-preview-key="common.nav.site_name">
+        <div className="flex justify-between items-center h-20">
+          <Link href="/" className="flex items-center gap-3 text-blue-600">
+            <Image
+              src="/logo.jpeg"
+              alt="デンタル ラボ アクア"
+              width={56}
+              height={56}
+              priority
+              className="h-14 w-14 rounded-full object-cover"
+            />
+            <span data-preview-key="common.nav.site_name" className="text-lg font-bold leading-tight sm:text-2xl">
               {c(data, 'common.nav.site_name', 'デンタル ラボ アクア')}
             </span>
           </Link>
