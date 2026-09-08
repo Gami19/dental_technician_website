@@ -12,6 +12,11 @@ const notoSansJP = Noto_Sans_JP({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dentallab-aqua.com'),
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/apple-icon.png',
+  },
   title: {
     default: 'デンタル ラボ アクア - CAD/CAM テレスコープ義歯専門ラボ',
     template: '%s | デンタル ラボ アクア',
