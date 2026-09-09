@@ -23,7 +23,7 @@ export function useContent() {
 }
 
 export function ContentProvider({ children }: { children: React.ReactNode }) {
-  const { isPreview, previewContent, previewLoading } = usePreviewData()
+  const { isPreview, previewContent } = usePreviewData()
   const [publicData, setPublicData] = useState<Record<string, string>>({})
   const [publicLoading, setPublicLoading] = useState(true)
 
@@ -47,12 +47,11 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       void fetchContent()
     }, 0)
     return () => window.clearTimeout(timer)
-  }, [isPreview, previewContent, previewLoading, fetchContent])
+  }, [isPreview, fetchContent])
 
   const data = isPreview ? (previewContent ?? {}) : publicData
-  const loading = isPreview
-    ? previewLoading && previewContent === null
-    : publicLoading
+  // プレビューはデータ未到着（null）の間は常に loading
+  const loading = isPreview ? previewContent === null : publicLoading
 
   return (
     <ContentContext.Provider value={{ data, loading, refetch: fetchContent }}>

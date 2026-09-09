@@ -49,12 +49,17 @@ function getIsPreviewFromUrl(): boolean {
 }
 
 export function PreviewDataProvider({ children }: { children: React.ReactNode }) {
-  const [isPreview] = useState(getIsPreviewFromUrl)
+  // SSR / 初回 hydration は常に false。URL 判定は mount 後のみ（hydration mismatch 防止）
+  const [isPreview, setIsPreview] = useState(false)
   const [previewToken, setPreviewToken] = useState<string | null>(null)
   const [previewContent, setPreviewContent] = useState<Record<string, string> | null>(null)
   const [previewImages, setPreviewImages] = useState<Record<string, PublicImage> | null>(null)
   const [previewAnnouncements, setPreviewAnnouncements] = useState<PreviewAnnouncement[] | null>(null)
   const [previewLoading, setPreviewLoading] = useState(false)
+
+  useEffect(() => {
+    setIsPreview(getIsPreviewFromUrl())
+  }, [])
 
   const fetchPreview = useCallback((token: string) => {
     setPreviewLoading(true)
@@ -66,9 +71,10 @@ export function PreviewDataProvider({ children }: { children: React.ReactNode })
         setPreviewAnnouncements(data.announcements ?? [])
       })
       .catch((err: Error & { status?: number }) => {
-        setPreviewContent(null)
-        setPreviewImages(null)
-        setPreviewAnnouncements(null)
+        // null のままだと loading が終わらないため空オブジェクトにする
+        setPreviewContent({})
+        setPreviewImages({})
+        setPreviewAnnouncements([])
         // 401（トークン期限切れ・無効）のとき、親（管理画面）に再取得を依頼
         if (err?.status === 401 && window.parent !== window) {
           const adminOrigin = (() => {
