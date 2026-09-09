@@ -9,6 +9,44 @@ function c(data: Record<string, string>, key: string, fallback: string) {
   return data[key] || fallback;
 }
 
+/** content-keys.ts の products.flow デフォルトと揃える */
+const FLOW_STEPS = [
+  {
+    step: '01',
+    keyTitle: 'step1_title',
+    keyDesc: 'step1_desc',
+    title: 'ご依頼・データ送付',
+    description: 'IOSデータまたは印象をお送りください。オンラインでの受付も可能です。',
+    Icon: Monitor,
+  },
+  {
+    step: '02',
+    keyTitle: 'step2_title',
+    keyDesc: 'step2_desc',
+    title: 'CAD設計',
+    description:
+      '3Dデータによる詳細な解析と精密な設計を行います。必要に応じて設計内容をご確認いただきます。',
+    Icon: Cog,
+  },
+  {
+    step: '03',
+    keyTitle: 'step3_title',
+    keyDesc: 'step3_desc',
+    title: 'CAM製作',
+    description:
+      '最新の切削機械により、ミクロン単位の精度で加工を行います。品質管理も徹底しています。',
+    Icon: Microscope,
+  },
+  {
+    step: '04',
+    keyTitle: 'step4_title',
+    keyDesc: 'step4_desc',
+    title: '最終チェック・納品',
+    description: '厳格な品質チェックを経て納品いたします。アフターサポートも充実しています。',
+    Icon: CheckCircle,
+  },
+] as const
+
 export function ProductsContent() {
   const { data } = useContent();
   return (
@@ -185,26 +223,23 @@ export function ProductsContent() {
           </div>
           <div className="max-w-4xl mx-auto">
             <div className="space-y-8">
-              {[
-                { step: '01', keyTitle: 'step1_title', keyDesc: 'step1_desc', icon: <Monitor size={32} /> },
-                { step: '02', keyTitle: 'step2_title', keyDesc: 'step2_desc', icon: <Cog size={32} /> },
-                { step: '03', keyTitle: 'step3_title', keyDesc: 'step3_desc', icon: <Microscope size={32} /> },
-                { step: '04', keyTitle: 'step4_title', keyDesc: 'step4_desc', icon: <CheckCircle size={32} /> },
-              ].map((item, index) => (
-                <div key={index} className="flex items-start space-x-6">
+              {FLOW_STEPS.map((item) => (
+                <div key={item.step} className="flex items-start space-x-6">
                   <div className="flex-shrink-0">
                     <div className="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg">{item.step}</div>
                   </div>
                   <div className="flex-grow">
                     <div className="bg-gray-50 rounded-lg p-6">
                       <div className="flex items-center space-x-3 mb-3">
-                        <div className="text-blue-600">{item.icon}</div>
+                        <div className="text-blue-600">
+                          <item.Icon size={32} />
+                        </div>
                         <h3 className="text-xl font-bold text-gray-900" data-preview-key={`products.flow.${item.keyTitle}`}>
-                          {c(data, `products.flow.${item.keyTitle}`, '')}
+                          {c(data, `products.flow.${item.keyTitle}`, item.title)}
                         </h3>
                       </div>
                       <p className="text-gray-600" data-preview-key={`products.flow.${item.keyDesc}`}>
-                        {c(data, `products.flow.${item.keyDesc}`, '')}
+                        {c(data, `products.flow.${item.keyDesc}`, item.description)}
                       </p>
                     </div>
                   </div>
