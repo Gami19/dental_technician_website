@@ -8,6 +8,58 @@ function c(data: Record<string, string>, key: string, fallback: string) {
   return data[key] || fallback;
 }
 
+/** content-keys.ts の about.equipment デフォルトと揃える */
+const EQUIPMENT_ITEMS = [
+  {
+    n: 1,
+    imageKey: 'about_equipment_cad',
+    title: 'CADソフトウェア',
+    product: 'exocad DentalCAD',
+    description:
+      '業界標準のCADソフトウェアで、精密な設計を行います。テレスコープ義歯の複雑な構造も正確に設計可能です。',
+  },
+  {
+    n: 2,
+    imageKey: 'about_equipment_cam',
+    title: 'CAM（切削機）',
+    product: 'Roland DWX-52DCi',
+    description:
+      '高精度5軸切削機により、ミクロン単位の精密加工を実現。チタンからジルコニアまで、あらゆる材料に対応します。',
+  },
+  {
+    n: 3,
+    imageKey: 'about_equipment_scanner',
+    title: '3Dスキャナー',
+    product: '3Shape E4',
+    description:
+      '高解像度3Dスキャナーで、印象の精密なデジタル化を行います。IOSデータとの統合により、完全デジタルワークフローを実現。',
+  },
+  {
+    n: 4,
+    imageKey: 'about_equipment_meter',
+    title: '測定機器',
+    product: 'デジタルマイクロメーター',
+    description:
+      '完成した技工物の精度を厳密にチェック。設計値との誤差をμm単位で検証し、品質を保証します。',
+  },
+  {
+    n: 5,
+    imageKey: 'about_equipment_furnace',
+    title: '焼成炉',
+    product: 'Programat P700',
+    description:
+      'セラミックの焼成に最適化された高精度炉。プログラム制御により、安定した品質を実現します。',
+  },
+  {
+    n: 6,
+    imageKey: 'about_equipment_quality',
+    title: '品質管理システム',
+    product: 'デジタル記録システム',
+    description:
+      '全ての製作工程をデジタル記録。トレーサビリティを確保し、継続的な品質改善を実現します。',
+  },
+] as const
+
 export function AboutContent() {
   const { data } = useContent();
   return (
@@ -184,25 +236,25 @@ export function AboutContent() {
           </div>
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((n) => (
-                <div key={n} className="bg-gray-50 rounded-xl p-6">
+              {EQUIPMENT_ITEMS.map((item) => (
+                <div key={item.n} className="bg-gray-50 rounded-xl p-6">
                   <div className="flex items-center space-x-3 mb-4">
                     <Monitor className="text-blue-600" size={32} />
-                    <h3 className="text-xl font-bold text-gray-900" data-preview-key={`about.equipment.equipment${n}_title`}>
-                      {c(data, `about.equipment.equipment${n}_title`, '')}
+                    <h3 className="text-xl font-bold text-gray-900" data-preview-key={`about.equipment.equipment${item.n}_title`}>
+                      {c(data, `about.equipment.equipment${item.n}_title`, item.title)}
                     </h3>
                   </div>
                   <ImageByKey
-                    imageKey={n === 1 ? 'about_equipment_cad' : n === 2 ? 'about_equipment_cam' : n === 3 ? 'about_equipment_scanner' : n === 4 ? 'about_equipment_meter' : n === 5 ? 'about_equipment_furnace' : 'about_equipment_quality'}
-                    alt={c(data, `about.equipment.equipment${n}_title`, '')}
+                    imageKey={item.imageKey}
+                    alt={c(data, `about.equipment.equipment${item.n}_title`, item.title)}
                     className="w-full h-48 object-cover rounded-lg mb-4"
                   />
                   <div className="space-y-2">
-                    <div className="font-semibold text-gray-900" data-preview-key={`about.equipment.equipment${n}_product`}>
-                      {c(data, `about.equipment.equipment${n}_product`, '')}
+                    <div className="font-semibold text-gray-900" data-preview-key={`about.equipment.equipment${item.n}_product`}>
+                      {c(data, `about.equipment.equipment${item.n}_product`, item.product)}
                     </div>
-                    <p className="text-gray-600 text-sm" data-preview-key={`about.equipment.equipment${n}_description`}>
-                      {c(data, `about.equipment.equipment${n}_description`, '')}
+                    <p className="text-gray-600 text-sm" data-preview-key={`about.equipment.equipment${item.n}_description`}>
+                      {c(data, `about.equipment.equipment${item.n}_description`, item.description)}
                     </p>
                   </div>
                 </div>

@@ -25,7 +25,7 @@ export function useImages() {
 }
 
 export function ImagesProvider({ children }: { children: React.ReactNode }) {
-  const { isPreview, previewImages, previewLoading } = usePreviewData()
+  const { isPreview, previewImages } = usePreviewData()
   const [publicData, setPublicData] = useState<ImagesData>({})
   const [publicLoading, setPublicLoading] = useState(true)
 
@@ -49,12 +49,11 @@ export function ImagesProvider({ children }: { children: React.ReactNode }) {
       void fetchImages()
     }, 0)
     return () => window.clearTimeout(timer)
-  }, [isPreview, previewImages, previewLoading, fetchImages])
+  }, [isPreview, fetchImages])
 
   const data = isPreview ? (previewImages ?? {}) : publicData
-  const loading = isPreview
-    ? previewLoading && previewImages === null
-    : publicLoading
+  // プレビューはデータ未到着（null）の間は常に loading（SSR と初回表示をパルスで揃える）
+  const loading = isPreview ? previewImages === null : publicLoading
 
   return (
     <ImagesContext.Provider value={{ data, loading, refetch: fetchImages }}>
