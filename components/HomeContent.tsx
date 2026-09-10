@@ -3,53 +3,65 @@
 import { useContent } from './ContentProvider';
 import FeatureCard from './FeatureCard';
 import { ImageByKey } from './ImageByKey';
-import { Microscope, Cpu, Wrench, Users, Award, Clock } from 'lucide-react';
+import { CardIcon, featureGridClassName } from './CardIcon';
+import {
+  resolveCardList,
+  type CardItem,
+  type FeatureCardItem,
+  type IconListItem,
+} from '@/lib/card-list';
 import Link from 'next/link';
 
 function c(data: Record<string, string>, key: string, fallback: string) {
   return data[key] || fallback;
 }
 
+function isFeatureCardItem(item: CardItem): item is FeatureCardItem {
+  return 'description' in item && !('text' in item) && !('imageKey' in item);
+}
+
+function isIconListItem(item: CardItem): item is IconListItem {
+  return 'text' in item;
+}
+
 export function HomeContent() {
   const { data } = useContent();
+  const features = resolveCardList('home.features', data);
+  const cadcamPoints = resolveCardList('home.cadcam', data);
 
   return (
     <>
-      <section className="py-20 bg-gray-50" data-preview-section="home.features">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4" data-preview-key="home.features.title">
-              {c(data, 'home.features.title', '私たちの強み')}
-            </h2>
-            <p className="text-xl text-gray-600" data-preview-key="home.features.subtitle">
-              {c(data, 'home.features.subtitle', '他にはない技術力と専門性で、最高品質の歯科技工物をお届けします')}
-            </p>
+      {features.showSection && (
+        <section className="py-20 bg-gray-50" data-preview-section="home.features">
+          <div className="container mx-auto px-4">
+            <div className={`text-center ${features.showHeadingOnly ? '' : 'mb-16'}`}>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4" data-preview-key="home.features.title">
+                {c(data, 'home.features.title', '私たちの強み')}
+              </h2>
+              <p className="text-xl text-gray-600" data-preview-key="home.features.subtitle">
+                {c(data, 'home.features.subtitle', '他にはない技術力と専門性で、最高品質の歯科技工物をお届けします')}
+              </p>
+            </div>
+            {!features.showHeadingOnly && (
+              <div className={featureGridClassName(features.items.length)}>
+                {features.items.map((item) => {
+                  if (!isFeatureCardItem(item)) return null;
+                  return (
+                    <FeatureCard
+                      key={item.id}
+                      icon={<CardIcon name={item.icon} size={48} />}
+                      title={item.title}
+                      description={item.description}
+                      titlePreviewKey={`home.features.item.${item.id}.title`}
+                      descriptionPreviewKey={`home.features.item.${item.id}.description`}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<Award size={48} />}
-              title={c(data, 'home.features.feature1_title', '希少な技術力')}
-              description={c(data, 'home.features.feature1_description', '国内でも製作者がほとんどいないテレスコープ義歯の専門ラボとして、豊富な経験と実績を誇ります。')}
-              titlePreviewKey="home.features.feature1_title"
-              descriptionPreviewKey="home.features.feature1_description"
-            />
-            <FeatureCard
-              icon={<Users size={48} />}
-              title={c(data, 'home.features.feature2_title', 'インプラントに代わる選択肢')}
-              description={c(data, 'home.features.feature2_description', '外科手術を伴わない、患者様への負担が少ない補綴治療をご提案。より多くの患者様に適用可能です。')}
-              titlePreviewKey="home.features.feature2_title"
-              descriptionPreviewKey="home.features.feature2_description"
-            />
-            <FeatureCard
-              icon={<Cpu size={48} />}
-              title={c(data, 'home.features.feature3_title', 'デジタル技工への対応')}
-              description={c(data, 'home.features.feature3_description', 'IOS（口腔内スキャナー）データに対応し、CAD/CAMで高精度な技工物を製作いたします。')}
-              titlePreviewKey="home.features.feature3_title"
-              descriptionPreviewKey="home.features.feature3_description"
-            />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="py-20 bg-white" data-preview-section="home.cadcam">
         <div className="container mx-auto px-4">
@@ -67,41 +79,33 @@ export function HomeContent() {
               <p className="text-lg text-gray-600 mb-8 leading-relaxed" data-preview-key="home.cadcam.paragraph">
                 {c(data, 'home.cadcam.paragraph', '最新のCAD（歯科設計ソフトウェア）とCAM（切削機械）を組み合わせることで、従来の手作業では不可能だった精密な加工を実現。患者様一人ひとりの口腔内状況に完璧に適合するテレスコープ義歯を製作いたします。')}
               </p>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <Microscope className="text-blue-600 mt-1" size={24} />
-                  <div>
-                    <h4 className="font-semibold text-gray-900" data-preview-key="home.cadcam.point1_title">
-                      {c(data, 'home.cadcam.point1_title', '精密設計')}
-                    </h4>
-                    <p className="text-gray-600" data-preview-key="home.cadcam.point1_text">
-                      {c(data, 'home.cadcam.point1_text', '3Dデータによる詳細な解析と設計')}
-                    </p>
-                  </div>
+              {/* ポイントリスト: 0枚かつ hide のときは非表示。heading のときはリストのみ省略 */}
+              {cadcamPoints.items.length > 0 && (
+                <div className="space-y-4">
+                  {cadcamPoints.items.map((item) => {
+                    if (!isIconListItem(item)) return null;
+                    return (
+                      <div key={item.id} className="flex items-start space-x-3">
+                        <CardIcon name={item.icon} className="text-blue-600 mt-1" size={24} />
+                        <div>
+                          <h4
+                            className="font-semibold text-gray-900"
+                            data-preview-key={`home.cadcam.item.${item.id}.title`}
+                          >
+                            {item.title}
+                          </h4>
+                          <p
+                            className="text-gray-600"
+                            data-preview-key={`home.cadcam.item.${item.id}.text`}
+                          >
+                            {item.text}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Wrench className="text-blue-600 mt-1" size={24} />
-                  <div>
-                    <h4 className="font-semibold text-gray-900" data-preview-key="home.cadcam.point2_title">
-                      {c(data, 'home.cadcam.point2_title', '高精度加工')}
-                    </h4>
-                    <p className="text-gray-600" data-preview-key="home.cadcam.point2_text">
-                      {c(data, 'home.cadcam.point2_text', 'ミクロン単位での切削加工技術')}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <Clock className="text-blue-600 mt-1" size={24} />
-                  <div>
-                    <h4 className="font-semibold text-gray-900" data-preview-key="home.cadcam.point3_title">
-                      {c(data, 'home.cadcam.point3_title', '短納期対応')}
-                    </h4>
-                    <p className="text-gray-600" data-preview-key="home.cadcam.point3_text">
-                      {c(data, 'home.cadcam.point3_text', 'デジタル化により製作期間を大幅短縮')}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
             <div className="relative">
               <ImageByKey
