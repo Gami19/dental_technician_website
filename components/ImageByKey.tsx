@@ -5,7 +5,8 @@ import { useImages } from './ImagesProvider'
 import type { ImageKey } from '@/lib/image-keys'
 
 type ImageByKeyProps = {
-  imageKey: ImageKey
+  /** 固定キーまたは動的 imageKey（設備カード等） */
+  imageKey: ImageKey | string
   alt?: string
   className?: string
   /** 画像がない場合のフォールバックURL */
