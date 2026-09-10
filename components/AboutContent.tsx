@@ -1,67 +1,27 @@
 'use client';
 
-import { MapPin, Phone, Mail, Clock, Award, Monitor } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Award } from 'lucide-react';
 import { ImageByKey } from '@/components/ImageByKey';
+import { CardIcon, equipmentGridClassName } from '@/components/CardIcon';
 import { useContent } from './ContentProvider';
+import {
+  resolveCardList,
+  type CardItem,
+  type EquipmentCardItem,
+} from '@/lib/card-list';
 
 function c(data: Record<string, string>, key: string, fallback: string) {
   return data[key] || fallback;
 }
 
-/** content-keys.ts の about.equipment デフォルトと揃える */
-const EQUIPMENT_ITEMS = [
-  {
-    n: 1,
-    imageKey: 'about_equipment_cad',
-    title: 'CADソフトウェア',
-    product: 'exocad DentalCAD',
-    description:
-      '業界標準のCADソフトウェアで、精密な設計を行います。テレスコープ義歯の複雑な構造も正確に設計可能です。',
-  },
-  {
-    n: 2,
-    imageKey: 'about_equipment_cam',
-    title: 'CAM（切削機）',
-    product: 'Roland DWX-52DCi',
-    description:
-      '高精度5軸切削機により、ミクロン単位の精密加工を実現。チタンからジルコニアまで、あらゆる材料に対応します。',
-  },
-  {
-    n: 3,
-    imageKey: 'about_equipment_scanner',
-    title: '3Dスキャナー',
-    product: '3Shape E4',
-    description:
-      '高解像度3Dスキャナーで、印象の精密なデジタル化を行います。IOSデータとの統合により、完全デジタルワークフローを実現。',
-  },
-  {
-    n: 4,
-    imageKey: 'about_equipment_meter',
-    title: '測定機器',
-    product: 'デジタルマイクロメーター',
-    description:
-      '完成した技工物の精度を厳密にチェック。設計値との誤差をμm単位で検証し、品質を保証します。',
-  },
-  {
-    n: 5,
-    imageKey: 'about_equipment_furnace',
-    title: '焼成炉',
-    product: 'Programat P700',
-    description:
-      'セラミックの焼成に最適化された高精度炉。プログラム制御により、安定した品質を実現します。',
-  },
-  {
-    n: 6,
-    imageKey: 'about_equipment_quality',
-    title: '品質管理システム',
-    product: 'デジタル記録システム',
-    description:
-      '全ての製作工程をデジタル記録。トレーサビリティを確保し、継続的な品質改善を実現します。',
-  },
-] as const
+function isEquipmentItem(item: CardItem): item is EquipmentCardItem {
+  return 'imageKey' in item && 'product' in item;
+}
 
 export function AboutContent() {
   const { data } = useContent();
+  const equipment = resolveCardList('about.equipment', data);
+
   return (
     <div className="min-h-screen">
       <section
@@ -224,45 +184,61 @@ export function AboutContent() {
         </div>
       </section>
 
-      <section className="py-20 bg-white" data-preview-section="about.equipment">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="about.equipment.title">
-              {c(data, 'about.equipment.title', '設備紹介')}
-            </h2>
-            <p className="text-xl text-gray-600" data-preview-key="about.equipment.subtitle">
-              {c(data, 'about.equipment.subtitle', '最新の機器により、高品質な技工物を製作しています')}
-            </p>
-          </div>
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {EQUIPMENT_ITEMS.map((item) => (
-                <div key={item.n} className="bg-gray-50 rounded-xl p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <Monitor className="text-blue-600" size={32} />
-                    <h3 className="text-xl font-bold text-gray-900" data-preview-key={`about.equipment.equipment${item.n}_title`}>
-                      {c(data, `about.equipment.equipment${item.n}_title`, item.title)}
-                    </h3>
-                  </div>
-                  <ImageByKey
-                    imageKey={item.imageKey}
-                    alt={c(data, `about.equipment.equipment${item.n}_title`, item.title)}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                  <div className="space-y-2">
-                    <div className="font-semibold text-gray-900" data-preview-key={`about.equipment.equipment${item.n}_product`}>
-                      {c(data, `about.equipment.equipment${item.n}_product`, item.product)}
-                    </div>
-                    <p className="text-gray-600 text-sm" data-preview-key={`about.equipment.equipment${item.n}_description`}>
-                      {c(data, `about.equipment.equipment${item.n}_description`, item.description)}
-                    </p>
-                  </div>
-                </div>
-              ))}
+      {equipment.showSection && (
+        <section className="py-20 bg-white" data-preview-section="about.equipment">
+          <div className="container mx-auto px-4">
+            <div className={`text-center ${equipment.showHeadingOnly ? '' : 'mb-16'}`}>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="about.equipment.title">
+                {c(data, 'about.equipment.title', '設備紹介')}
+              </h2>
+              <p className="text-xl text-gray-600" data-preview-key="about.equipment.subtitle">
+                {c(data, 'about.equipment.subtitle', '最新の機器により、高品質な技工物を製作しています')}
+              </p>
             </div>
+            {!equipment.showHeadingOnly && (
+              <div className="max-w-6xl mx-auto">
+                <div className={equipmentGridClassName(equipment.items.length)}>
+                  {equipment.items.map((item) => {
+                    if (!isEquipmentItem(item)) return null;
+                    return (
+                      <div key={item.id} className="bg-gray-50 rounded-xl p-6">
+                        <div className="flex items-center space-x-3 mb-4">
+                          <CardIcon name={item.icon} className="text-blue-600" size={32} />
+                          <h3
+                            className="text-xl font-bold text-gray-900"
+                            data-preview-key={`about.equipment.item.${item.id}.title`}
+                          >
+                            {item.title}
+                          </h3>
+                        </div>
+                        <ImageByKey
+                          imageKey={item.imageKey}
+                          alt={item.title}
+                          className="w-full h-48 object-cover rounded-lg mb-4"
+                        />
+                        <div className="space-y-2">
+                          <div
+                            className="font-semibold text-gray-900"
+                            data-preview-key={`about.equipment.item.${item.id}.product`}
+                          >
+                            {item.product}
+                          </div>
+                          <p
+                            className="text-gray-600 text-sm"
+                            data-preview-key={`about.equipment.item.${item.id}.description`}
+                          >
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }

@@ -1,54 +1,34 @@
 'use client';
 
-import { CheckCircle, Monitor, Cog, Clock, Award, Microscope } from 'lucide-react';
 import Link from 'next/link';
 import { ImageByKey } from '@/components/ImageByKey';
+import { CardIcon, featureGridClassName, stepNumberLabel } from '@/components/CardIcon';
 import { useContent } from './ContentProvider';
+import {
+  resolveCardList,
+  type CardItem,
+  type FeatureCardItem,
+  type IconListItem,
+} from '@/lib/card-list';
 
 function c(data: Record<string, string>, key: string, fallback: string) {
   return data[key] || fallback;
 }
 
-/** content-keys.ts の products.flow デフォルトと揃える */
-const FLOW_STEPS = [
-  {
-    step: '01',
-    keyTitle: 'step1_title',
-    keyDesc: 'step1_desc',
-    title: 'ご依頼・データ送付',
-    description: 'IOSデータまたは印象をお送りください。オンラインでの受付も可能です。',
-    Icon: Monitor,
-  },
-  {
-    step: '02',
-    keyTitle: 'step2_title',
-    keyDesc: 'step2_desc',
-    title: 'CAD設計',
-    description:
-      '3Dデータによる詳細な解析と精密な設計を行います。必要に応じて設計内容をご確認いただきます。',
-    Icon: Cog,
-  },
-  {
-    step: '03',
-    keyTitle: 'step3_title',
-    keyDesc: 'step3_desc',
-    title: 'CAM製作',
-    description:
-      '最新の切削機械により、ミクロン単位の精度で加工を行います。品質管理も徹底しています。',
-    Icon: Microscope,
-  },
-  {
-    step: '04',
-    keyTitle: 'step4_title',
-    keyDesc: 'step4_desc',
-    title: '最終チェック・納品',
-    description: '厳格な品質チェックを経て納品いたします。アフターサポートも充実しています。',
-    Icon: CheckCircle,
-  },
-] as const
+function isFeatureCardItem(item: CardItem): item is FeatureCardItem {
+  return 'description' in item && !('text' in item) && !('imageKey' in item);
+}
+
+function isIconListItem(item: CardItem): item is IconListItem {
+  return 'text' in item;
+}
 
 export function ProductsContent() {
   const { data } = useContent();
+  const telescopeStructure = resolveCardList('products.telescope', data);
+  const reasons = resolveCardList('products.reasons', data);
+  const flow = resolveCardList('products.flow', data);
+
   return (
     <div className="min-h-screen">
       <section
@@ -89,44 +69,42 @@ export function ProductsContent() {
                 <ImageByKey imageKey="products_telescope" alt="テレスコープ義歯の構造" className="rounded-xl shadow-lg w-full" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6" data-preview-key="products.telescope.structure_title">
-                  {c(data, 'products.telescope.structure_title', '基本構造と仕組み')}
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-blue-100 rounded-full p-2"><Cog className="text-blue-600" size={20} /></div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900" data-preview-key="products.telescope.inner_cap_title">
-                        {c(data, 'products.telescope.inner_cap_title', '内冠（インナーキャップ）')}
-                      </h4>
-                      <p className="text-gray-600" data-preview-key="products.telescope.inner_cap_desc">
-                        {c(data, 'products.telescope.inner_cap_desc', '残存歯に装着する内側の冠')}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-blue-100 rounded-full p-2"><Cog className="text-blue-600" size={20} /></div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900" data-preview-key="products.telescope.outer_cap_title">
-                        {c(data, 'products.telescope.outer_cap_title', '外冠（アウターキャップ）')}
-                      </h4>
-                      <p className="text-gray-600" data-preview-key="products.telescope.outer_cap_desc">
-                        {c(data, 'products.telescope.outer_cap_desc', '義歯と一体化された外側の冠')}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-blue-100 rounded-full p-2"><Microscope className="text-blue-600" size={20} /></div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900" data-preview-key="products.telescope.precision_title">
-                        {c(data, 'products.telescope.precision_title', '精密嵌合')}
-                      </h4>
-                      <p className="text-gray-600" data-preview-key="products.telescope.precision_desc">
-                        {c(data, 'products.telescope.precision_desc', '二つの冠の精密な嵌合により確実な固定を実現')}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                {/* 基本構造リスト: 0枚かつ hide ならブロックごと非表示 */}
+                {(telescopeStructure.items.length > 0 || telescopeStructure.emptyMode === 'heading') && (
+                  <>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6" data-preview-key="products.telescope.structure_title">
+                      {c(data, 'products.telescope.structure_title', '基本構造と仕組み')}
+                    </h3>
+                    {telescopeStructure.items.length > 0 && (
+                      <div className="space-y-4">
+                        {telescopeStructure.items.map((item) => {
+                          if (!isIconListItem(item)) return null;
+                          return (
+                            <div key={item.id} className="flex items-start space-x-3">
+                              <div className="bg-blue-100 rounded-full p-2">
+                                <CardIcon name={item.icon} className="text-blue-600" size={20} />
+                              </div>
+                              <div>
+                                <h4
+                                  className="font-semibold text-gray-900"
+                                  data-preview-key={`products.telescope.item.${item.id}.title`}
+                                >
+                                  {item.title}
+                                </h4>
+                                <p
+                                  className="text-gray-600"
+                                  data-preview-key={`products.telescope.item.${item.id}.text`}
+                                >
+                                  {item.text}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
             <div className="bg-gray-50 rounded-xl p-8">
@@ -169,86 +147,103 @@ export function ProductsContent() {
         </div>
       </section>
 
-      <section className="py-20 bg-blue-50" data-preview-section="products.reasons">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.reasons.title">
-              {c(data, 'products.reasons.title', '当ラボが選ばれる理由')}
-            </h2>
-            <p className="text-xl text-gray-600" data-preview-key="products.reasons.subtitle">
-              {c(data, 'products.reasons.subtitle', '圧倒的な技術力と豊富な経験で、最高品質をお約束します')}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-blue-600 mb-4"><Award size={48} /></div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900" data-preview-key="products.reasons.reason1_title">
-                {c(data, 'products.reasons.reason1_title', '圧倒的な精度と適合性')}
-              </h3>
-              <p className="text-gray-600 mb-6" data-preview-key="products.reasons.reason1_text">
-                {c(data, 'products.reasons.reason1_text', 'CAD（歯科設計ソフト）による精密な設計プロセスと、CAM（切削機械）によるミクロン単位の加工技術を組み合わせ、完璧な適合性を実現します。')}
+      {reasons.showSection && (
+        <section className="py-20 bg-blue-50" data-preview-section="products.reasons">
+          <div className="container mx-auto px-4">
+            <div className={`text-center ${reasons.showHeadingOnly ? '' : 'mb-16'}`}>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.reasons.title">
+                {c(data, 'products.reasons.title', '当ラボが選ばれる理由')}
+              </h2>
+              <p className="text-xl text-gray-600" data-preview-key="products.reasons.subtitle">
+                {c(data, 'products.reasons.subtitle', '圧倒的な技術力と豊富な経験で、最高品質をお約束します')}
               </p>
             </div>
-            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-blue-600 mb-4"><Monitor size={48} /></div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900" data-preview-key="products.reasons.reason2_title">
-                {c(data, 'products.reasons.reason2_title', 'IOSデータに完全対応')}
-              </h3>
-              <p className="text-gray-600 mb-6" data-preview-key="products.reasons.reason2_text">
-                {c(data, 'products.reasons.reason2_text', '口腔内スキャナーからのデータ受付が可能で、デジタルワークフローの利便性を最大限に活用できます。従来の印象採得の手間を大幅に削減します。')}
-              </p>
-            </div>
-            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-blue-600 mb-4"><Clock size={48} /></div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900" data-preview-key="products.reasons.reason3_title">
-                {c(data, 'products.reasons.reason3_title', '豊富な経験と実績')}
-              </h3>
-              <p className="text-gray-600 mb-6" data-preview-key="products.reasons.reason3_text">
-                {c(data, 'products.reasons.reason3_text', 'これまで数多くのテレスコープ義歯を手掛け、難症例にも対応してきた実績があります。常に最新技術を取り入れ、品質向上に努めています。')}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-white" data-preview-section="products.flow">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.flow.title">
-              {c(data, 'products.flow.title', '製作の流れ')}
-            </h2>
-            <p className="text-xl text-gray-600" data-preview-key="products.flow.subtitle">
-              {c(data, 'products.flow.subtitle', 'ご依頼から納品までのステップをご紹介します')}
-            </p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-8">
-              {FLOW_STEPS.map((item) => (
-                <div key={item.step} className="flex items-start space-x-6">
-                  <div className="flex-shrink-0">
-                    <div className="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg">{item.step}</div>
-                  </div>
-                  <div className="flex-grow">
-                    <div className="bg-gray-50 rounded-lg p-6">
-                      <div className="flex items-center space-x-3 mb-3">
-                        <div className="text-blue-600">
-                          <item.Icon size={32} />
-                        </div>
-                        <h3 className="text-xl font-bold text-gray-900" data-preview-key={`products.flow.${item.keyTitle}`}>
-                          {c(data, `products.flow.${item.keyTitle}`, item.title)}
-                        </h3>
+            {!reasons.showHeadingOnly && (
+              <div className={`${featureGridClassName(reasons.items.length)} mb-16`}>
+                {reasons.items.map((item) => {
+                  if (!isFeatureCardItem(item)) return null;
+                  return (
+                    <div
+                      key={item.id}
+                      className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+                    >
+                      <div className="text-blue-600 mb-4">
+                        <CardIcon name={item.icon} size={48} />
                       </div>
-                      <p className="text-gray-600" data-preview-key={`products.flow.${item.keyDesc}`}>
-                        {c(data, `products.flow.${item.keyDesc}`, item.description)}
+                      <h3
+                        className="text-xl font-bold mb-4 text-gray-900"
+                        data-preview-key={`products.reasons.item.${item.id}.title`}
+                      >
+                        {item.title}
+                      </h3>
+                      <p
+                        className="text-gray-600 mb-6"
+                        data-preview-key={`products.reasons.item.${item.id}.description`}
+                      >
+                        {item.description}
                       </p>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {flow.showSection && (
+        <section className="py-20 bg-white" data-preview-section="products.flow">
+          <div className="container mx-auto px-4">
+            <div className={`text-center ${flow.showHeadingOnly ? '' : 'mb-16'}`}>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6" data-preview-key="products.flow.title">
+                {c(data, 'products.flow.title', '製作の流れ')}
+              </h2>
+              <p className="text-xl text-gray-600" data-preview-key="products.flow.subtitle">
+                {c(data, 'products.flow.subtitle', 'ご依頼から納品までのステップをご紹介します')}
+              </p>
+            </div>
+            {!flow.showHeadingOnly && (
+              <div className="max-w-4xl mx-auto">
+                <div className="space-y-8">
+                  {flow.items.map((item, index) => {
+                    if (!isFeatureCardItem(item)) return null;
+                    return (
+                      <div key={item.id} className="flex items-start space-x-6">
+                        <div className="flex-shrink-0">
+                          <div className="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg">
+                            {stepNumberLabel(index)}
+                          </div>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="bg-gray-50 rounded-lg p-6">
+                            <div className="flex items-center space-x-3 mb-3">
+                              <div className="text-blue-600">
+                                <CardIcon name={item.icon} size={32} />
+                              </div>
+                              <h3
+                                className="text-xl font-bold text-gray-900"
+                                data-preview-key={`products.flow.item.${item.id}.title`}
+                              >
+                                {item.title}
+                              </h3>
+                            </div>
+                            <p
+                              className="text-gray-600"
+                              data-preview-key={`products.flow.item.${item.id}.description`}
+                            >
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       <section className="py-20 bg-gray-50" data-preview-section="products.price">
         <div className="container mx-auto px-4">
