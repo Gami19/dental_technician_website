@@ -13,8 +13,11 @@ const notoSansJP = Noto_Sans_JP({ subsets: ['latin'] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://dentallab-aqua.com'),
   icons: {
-    icon: '/icon.png',
-    shortcut: '/icon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
   title: {
